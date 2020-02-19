@@ -10,9 +10,15 @@ const GlobalStyle = createGlobalStyle`
         -moz-osx-font-smoothing: grayscale;
     }
     html{
+        margin: 0;
+        padding: 0;
         font-family: 'Montserrat',sans-serif;
         font-size: 62.5%;
         margin: 0;
+    }
+    body{
+        margin:0;
+        padding: 0;
     }
 `;
 

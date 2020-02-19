@@ -2,7 +2,7 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 
 const Link = styled.a`
-  font-size: 2.5rem;
+  font-size: 2rem;
   color: #fff;
   padding: 10px;
   text-decoration: none;

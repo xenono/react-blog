@@ -21,13 +21,13 @@ const Navigation = () => (
   <StyledWrapper>
     <StyledList>
       <li>
-        <Link to="/">home</Link>
+        <Link href="/">home</Link>
       </li>
       <li>
-        <Link to="/">blog</Link>
+        <Link href="/blog">blog</Link>
       </li>
       <li>
-        <Link to="/">tutorials</Link>
+        <Link href="/tutorials">tutorials</Link>
       </li>
     </StyledList>
   </StyledWrapper>

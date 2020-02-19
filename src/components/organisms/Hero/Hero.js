@@ -16,7 +16,7 @@ const StyledHeading = styled(Heading)`
   position: absolute;
   top: 25%;
   left: 7%;
-  max-width: 50vw;
+  max-width: 55vw;
 `;
 const Hero = () => (
   <StyledWrapper>
