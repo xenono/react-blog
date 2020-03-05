@@ -6,7 +6,7 @@ import Heading from 'components/atoms/Heading/Heading';
 
 const StyledWrapper = styled.div`
   height: 100vh;
-  width: 100vw;
+  max-width: 100%;
   background-image: url(${backgroundImage});
   background-position: 50% 50%;
   background-repeat: no-repeat;

@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Button = styled.button`
+  display: block;
   font-size: 3rem;
   width: 200px;
   height: 60px;
@@ -10,6 +11,10 @@ const Button = styled.button`
   border: 1px solid black;
   font-weight: bold;
   border-radius: 50px;
+  margin: 0 auto;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 export default Button;

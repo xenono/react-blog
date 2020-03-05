@@ -1,15 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
 import Link from 'components/atoms/Link/Link';
+import { NavLink } from 'react-router-dom';
 
 const StyledWrapper = styled.div`
   height: 10vh;
   width: 100%;
-  padding: 10px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: flex-end;
+  background-color: ${({ primary, theme }) => (primary ? theme.primary : 'transparent')};
 `;
 const StyledList = styled.ul`
   width: 50%;
@@ -17,17 +18,24 @@ const StyledList = styled.ul`
   display: flex;
   justify-content: space-evenly;
 `;
-const Navigation = () => (
-  <StyledWrapper>
+
+const Navigation = ({ primary }) => (
+  <StyledWrapper primary={primary}>
     <StyledList>
       <li>
-        <Link href="/">home</Link>
+        <Link exact as={NavLink} activeclass="active" to="/">
+          home
+        </Link>
       </li>
       <li>
-        <Link href="/blog">blog</Link>
+        <Link as={NavLink} activeclass="active" to="/blog">
+          blog
+        </Link>
       </li>
       <li>
-        <Link href="/tutorials">tutorials</Link>
+        <Link as={NavLink} activeclass="active" to="/tutorials">
+          tutorials
+        </Link>
       </li>
     </StyledList>
   </StyledWrapper>

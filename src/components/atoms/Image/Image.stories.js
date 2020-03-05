@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import lionImg from 'assets/lion.jpg';
-import laptopImg from 'assets/comp-2.jpg';
+import laptopImg from 'assets/comp2.jpg';
 import Image from './Image';
 
 storiesOf('Image', module)

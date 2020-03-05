@@ -7,7 +7,7 @@ const Link = styled.a`
   padding: 10px;
   text-decoration: none;
   font-weight: 600;
-  &:active {
+  &.active {
     text-decoration: underline;
     /* color: ${({ theme }) => theme.primary}; */
     color: #BDBDBD;
@@ -18,12 +18,5 @@ const Link = styled.a`
     text-decoration: underline;
     cursor: pointer;
   }
-  ${({ active }) =>
-    active &&
-    css`
-      text-decoration: underline;
-      /* color: ${({ theme }) => theme.primary}; */
-      color: #BDBDBD;
-    `}
 `;
 export default Link;
