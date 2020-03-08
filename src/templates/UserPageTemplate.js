@@ -1,9 +1,9 @@
 import React from 'react';
 import Navigation from 'components/molecules/Navigation/Navigation';
 
-const UserPageTemplate = ({ children }) => (
+const UserPageTemplate = ({ children, primary }) => (
   <>
-    <Navigation />
+    <Navigation primary={primary} />
     {children}
   </>
 );

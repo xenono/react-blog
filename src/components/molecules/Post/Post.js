@@ -32,16 +32,12 @@ const StyledContent = styled.div`
   padding: 1rem;
 `;
 
-const Post = () => (
+const Post = ({ id, title, content, image }) => (
   <StyledWrapper>
-    <StyledImage src={exampleImage} />
+    <StyledImage src={image} />
     <StyledContent>
-      <StyledHeading black>Writing beatifull JavaScript</StyledHeading>
-      <StyledParagraph black>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste enim nam modi eos quibusdam
-        maiores labore quisquam fugiat, ab earum? Neque eum architecto, ipsum deleniti corrupti
-        magnam eaque iusto corporis.
-      </StyledParagraph>
+      <StyledHeading black>{title}</StyledHeading>
+      <StyledParagraph black>{content}</StyledParagraph>
       <StyledButton>Read more</StyledButton>
     </StyledContent>
   </StyledWrapper>

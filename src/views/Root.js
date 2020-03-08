@@ -4,17 +4,24 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Blog from 'views/Blog';
 import Tutorials from 'views/Tutorials';
 import Homepage from 'views/Homepage';
+import store from 'store';
+import { Provider } from 'react-redux';
+import DetailsPage from './DetailsPage';
 
 const Root = () => (
-  <BrowserRouter>
-    <MainTemplate>
-      <Switch>
-        <Route exact path="/" component={Homepage} />
-        <Route path="/blog" component={Blog} />
-        <Route path="/tutorials" component={Tutorials} />
-      </Switch>
-    </MainTemplate>
-  </BrowserRouter>
+  <Provider store={store}>
+    <BrowserRouter>
+      <MainTemplate>
+        <Switch>
+          <Route exact path="/" component={Homepage} />
+          <Route exact path="/blog" component={Blog} />
+          <Route path="/blog/:id" component={DetailsPage} />
+          <Route exact path="/tutorials" component={Tutorials} />
+          <Route path="/tutorials/:id" component={DetailsPage} />
+        </Switch>
+      </MainTemplate>
+    </BrowserRouter>
+  </Provider>
 );
 
 export default Root;
