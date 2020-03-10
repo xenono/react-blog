@@ -23,16 +23,16 @@ const StyledPostlink = styled(Postlink)`
 `;
 const PostTable = () => (
   <>
-    <Heading>My posts</Heading>
+    <Heading black>My posts</Heading>
     <StyledWrapper>
       <StyledWrapper row>
-        <Heading>Tutorials</Heading>
+        <Heading black>Tutorials</Heading>
         <StyledPostlink type="post">Writing beautiful JavaScript</StyledPostlink>
         <StyledPostlink type="post">CSS is powerfull</StyledPostlink>
         <StyledPostlink type="post">TypeScript tutorial</StyledPostlink>
       </StyledWrapper>
       <StyledWrapper row>
-        <Heading>Videos</Heading>
+        <Heading black>Videos</Heading>
         <StyledPostlink>Animated slider</StyledPostlink>
         <StyledPostlink>React Redux practise</StyledPostlink>
         <StyledPostlink>React Router Power</StyledPostlink>

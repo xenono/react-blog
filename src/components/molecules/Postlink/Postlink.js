@@ -13,13 +13,11 @@ const StyledWrapper = styled.div`
 const StyledHeading = styled(Heading)`
   font-size: 4rem;
 `;
-const StyledButton = styled(Button)`
-  font-size: 3rem;
-`;
+
 const Postlink = ({ children, type }) => (
   <StyledWrapper>
     <StyledHeading>{children}</StyledHeading>
-    <StyledButton>{type === 'post' ? 'Go' : 'Watch'}</StyledButton>
+    <Button>{type === 'post' ? 'Go' : 'Watch'}</Button>
   </StyledWrapper>
 );
 export default Postlink;

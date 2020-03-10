@@ -36,7 +36,7 @@ const Blog = ({ posts }) => (
     </StyledGridTemplate>
     <GridTemplate>
       {posts.map(({ id, title, content, image }) => (
-        <Post id={id} title={title} content={content} image={image} key={id} />
+        <Post id={id} title={title} content={content} image={image} key={id} pageType="blog" />
       ))}
     </GridTemplate>
   </UserPageTemplate>

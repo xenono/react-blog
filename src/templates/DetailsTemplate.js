@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 import UserPageTemplate from './UserPageTemplate';
 import Heading from 'components/atoms/Heading/Heading';
 import Paragraph from 'components/atoms/Paragraph/Paragraph';
@@ -22,8 +23,11 @@ const StyledHeading = styled(Heading)`
   max-width: 50%;
   display: inline;
 `;
+const StyledButton = styled(Button)`
+  text-align: center;
+`;
 
-const DetailsTemplate = ({ title, content, image }) => (
+const DetailsTemplate = ({ title, content, image, pageType }) => (
   <UserPageTemplate primary>
     <StyledWrapper>
       <StyledIntro>
@@ -31,8 +35,15 @@ const DetailsTemplate = ({ title, content, image }) => (
         <StyledHeading black>{title}</StyledHeading>
       </StyledIntro>
       <Paragraph black>{content}</Paragraph>
+      <StyledButton as={Link} to={`/${pageType}`}>
+        Previous page
+      </StyledButton>
     </StyledWrapper>
   </UserPageTemplate>
 );
+
+DetailsTemplate.defaultProps = {
+  pageType: 'blog',
+};
 
 export default DetailsTemplate;

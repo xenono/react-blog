@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import DetailsTemplate from 'templates/DetailsTemplate';
 
 const state = {
@@ -8,8 +8,41 @@ const state = {
     'Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste enim nam modieos quibusdam maiores labore quisquam fugiat, ab earum? Neque eum architecto, ipsum deleniti corrupti magnam eaque iusto corporis.',
   image: 'http://localhost:3000/static/media/comp2.61e3a393.jpg',
 };
-const DetailsPage = () => (
-  <DetailsTemplate id={state.id} title={state.title} content={state.content} image={state.image} />
-);
+
+class DetailsPage extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      pageType: 'blog',
+    };
+  }
+
+  componentDidMount() {
+    switch (this.props.match.path) {
+      case 'blog':
+        this.setState({ pageType: 'blog' });
+        break;
+      case 'tutorials':
+        this.setState({ pageType: 'tutorials' });
+        break;
+
+      default:
+        this.setState({ pageType: 'blog' });
+    }
+  }
+
+  render() {
+    const { pageType } = this.state;
+    return (
+      <DetailsTemplate
+        id={state.id}
+        title={state.title}
+        content={state.content}
+        image={state.image}
+        pageType={pageType}
+      />
+    );
+  }
+}
 
 export default DetailsPage;

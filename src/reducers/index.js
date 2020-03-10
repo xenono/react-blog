@@ -25,11 +25,11 @@ const initialState = {
         'https://i1.wp.com/storage.googleapis.com/blog-images-backup/1*D8Wwwce8wS3auLAiM3BQKA.jpeg?ssl=1',
     },
   ],
-  videos: [
+  tutorials: [
     {
       id: 1,
       title: 'Animated slider',
-      description:
+      content:
         'Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste enim nam modieos quibusdam maiores labore quisquam fugiat',
       link: 'www.youtube.com',
       image: 'https://www.pozycjonusz.pl/wp-content/uploads/2019/05/java-script-SEO.jpg',
@@ -37,7 +37,7 @@ const initialState = {
     {
       id: 2,
       title: 'React Redux practise',
-      description:
+      content:
         'Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste enim nam modieos quibusdam maiores labore quisquam fugiat',
       link: 'www.youtube.com',
       image:
@@ -46,7 +46,7 @@ const initialState = {
     {
       id: 3,
       title: 'React Router Power',
-      description:
+      content:
         'Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste enim nam modieos quibusdam maiores labore quisquam fugiat',
       link: 'www.youtube.com',
       image:

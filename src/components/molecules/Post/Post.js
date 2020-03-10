@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { Component } from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
+import { Redirect } from 'react-router-dom';
 import Image from 'components/atoms/Image/Image';
 import Heading from 'components/atoms/Heading/Heading';
 import Paragraph from 'components/atoms/Paragraph/Paragraph';
@@ -26,20 +28,51 @@ const StyledParagraph = styled(Paragraph)`
 `;
 const StyledButton = styled(Button)`
   margin-bottom: 1rem;
-  font-size: 2rem;
 `;
 const StyledContent = styled.div`
   padding: 1rem;
 `;
 
-const Post = ({ id, title, content, image }) => (
-  <StyledWrapper>
-    <StyledImage src={image} />
-    <StyledContent>
-      <StyledHeading black>{title}</StyledHeading>
-      <StyledParagraph black>{content}</StyledParagraph>
-      <StyledButton>Read more</StyledButton>
-    </StyledContent>
-  </StyledWrapper>
-);
+class Post extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      redirect: false,
+    };
+  }
+
+  handlePostClick = () => this.setState({ redirect: true });
+
+  render() {
+    const { id, title, content, image, pageType } = this.props;
+
+    if (this.state.redirect) {
+      return <Redirect to={`${pageType}/${id}`} />;
+    }
+
+    return (
+      <StyledWrapper>
+        <StyledImage src={image} />
+        <StyledContent>
+          <StyledHeading black>{title}</StyledHeading>
+          <StyledParagraph black>{content}</StyledParagraph>
+          <StyledButton onClick={this.handlePostClick}>
+            {pageType === 'tutorials' ? 'Watch now' : 'Read more'}
+          </StyledButton>
+        </StyledContent>
+      </StyledWrapper>
+    );
+  }
+}
+
+Post.propTypes = {
+  id: PropTypes.number.isRequired,
+  title: PropTypes.string.isRequired,
+  content: PropTypes.string.isRequired,
+  image: PropTypes.string.isRequired,
+};
+Post.defaultProps = {
+  pageType: 'blog',
+};
+
 export default Post;
