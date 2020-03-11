@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Navigation from 'components/molecules/Navigation/Navigation';
 
 const UserPageTemplate = ({ children, primary }) => (
@@ -8,4 +9,7 @@ const UserPageTemplate = ({ children, primary }) => (
   </>
 );
 
+UserPageTemplate.propTypes = {
+  children: PropTypes.arrayOf(PropTypes.object).isRequired,
+};
 export default UserPageTemplate;

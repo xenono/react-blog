@@ -13,6 +13,7 @@ const StyledWrapper = styled.div`
   background-size: cover;
 `;
 const StyledHeading = styled(Heading)`
+  text-align: left;
   position: absolute;
   top: 25%;
   left: 7%;
@@ -21,7 +22,10 @@ const StyledHeading = styled(Heading)`
 const Hero = () => (
   <StyledWrapper>
     <Navigation />
-    <StyledHeading secondary>Develop yourself, time is not endless.</StyledHeading>
+    <StyledHeading secondary>
+      Develop yourself,
+      <br /> time is not endless.
+    </StyledHeading>
   </StyledWrapper>
 );
 export default Hero;

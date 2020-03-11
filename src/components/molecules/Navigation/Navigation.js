@@ -37,6 +37,11 @@ const Navigation = ({ primary }) => (
           tutorials
         </Link>
       </li>
+      <li>
+        <Link as={NavLink} activeclass="active" to="/login">
+          log in
+        </Link>
+      </li>
     </StyledList>
   </StyledWrapper>
 );

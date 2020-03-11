@@ -70,6 +70,7 @@ Post.propTypes = {
   title: PropTypes.string.isRequired,
   content: PropTypes.string.isRequired,
   image: PropTypes.string.isRequired,
+  pageType: PropTypes.string,
 };
 Post.defaultProps = {
   pageType: 'blog',

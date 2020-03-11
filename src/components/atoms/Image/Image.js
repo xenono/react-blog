@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components';
 
 const Image = styled.img`
   object-fit: cover;
-  max-width: 720px;
+  max-width: 100%;
 
   ${({ circle }) =>
     circle &&

@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import withContext from 'hoc/withContext';
 
 const StyledWrapper = styled.div`
   width: 100%;
@@ -12,8 +13,8 @@ const StyledWrapper = styled.div`
 `;
 const GridTemplate = ({ children }) => <StyledWrapper>{children}</StyledWrapper>;
 
-export default GridTemplate;
-
 GridTemplate.propTypes = {
   children: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
+
+export default withContext(GridTemplate);

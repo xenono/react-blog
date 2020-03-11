@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Heading from 'components/atoms/Heading/Heading';
 import Button from 'components/atoms/Button/Button';
@@ -20,4 +21,9 @@ const Postlink = ({ children, type }) => (
     <Button>{type === 'post' ? 'Go' : 'Watch'}</Button>
   </StyledWrapper>
 );
+
+Postlink.propTypes = {
+  children: PropTypes.arrayOf(PropTypes.object).isRequired,
+  type: PropTypes.string.isRequired,
+};
 export default Postlink;

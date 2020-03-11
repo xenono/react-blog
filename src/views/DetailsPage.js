@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import DetailsTemplate from 'templates/DetailsTemplate';
 
 const state = {
@@ -44,5 +45,9 @@ class DetailsPage extends Component {
     );
   }
 }
+
+DetailsPage.propTypes = {
+  match: PropTypes.string.isRequired,
+};
 
 export default DetailsPage;
