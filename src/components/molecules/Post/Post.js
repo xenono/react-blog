@@ -6,7 +6,6 @@ import Image from 'components/atoms/Image/Image';
 import Heading from 'components/atoms/Heading/Heading';
 import Paragraph from 'components/atoms/Paragraph/Paragraph';
 import Button from 'components/atoms/Button/Button';
-import exampleImage from 'assets/comp2.jpg';
 
 const StyledWrapper = styled.div`
   border: 4px solid ${({ theme }) => theme.primary};
@@ -44,7 +43,7 @@ class Post extends Component {
   handlePostClick = () => this.setState({ redirect: true });
 
   render() {
-    const { id, title, content, image, pageType } = this.props;
+    const { id, title, content, imageUrl, pageType } = this.props;
 
     if (this.state.redirect) {
       return <Redirect to={`${pageType}/${id}`} />;
@@ -52,7 +51,7 @@ class Post extends Component {
 
     return (
       <StyledWrapper>
-        <StyledImage src={image} />
+        <StyledImage src={imageUrl} />
         <StyledContent>
           <StyledHeading black>{title}</StyledHeading>
           <StyledParagraph black>{content}</StyledParagraph>
@@ -66,10 +65,10 @@ class Post extends Component {
 }
 
 Post.propTypes = {
-  id: PropTypes.number.isRequired,
+  id: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   content: PropTypes.string.isRequired,
-  image: PropTypes.string.isRequired,
+  imageUrl: PropTypes.string.isRequired,
   pageType: PropTypes.string,
 };
 Post.defaultProps = {

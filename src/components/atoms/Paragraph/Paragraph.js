@@ -1,4 +1,3 @@
-import React from 'react';
 import styled, { css } from 'styled-components';
 
 const Paragraph = styled.p`
@@ -9,6 +8,11 @@ const Paragraph = styled.p`
     black &&
     css`
       color: black;
+    `}
+  ${({ white }) =>
+    white &&
+    css`
+      color: white;
     `}
 `;
 

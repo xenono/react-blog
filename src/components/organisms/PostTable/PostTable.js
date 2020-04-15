@@ -8,7 +8,7 @@ const StyledWrapper = styled.div`
   flex-direction: row;
   justify-content: space-evenly;
   margin-top: 30px;
-  margin-bottom: 100px;
+  padding-bottom: 60px;
   ${({ row }) =>
     row &&
     css`
@@ -33,9 +33,9 @@ const PostTable = () => (
       </StyledWrapper>
       <StyledWrapper row>
         <Heading black>Videos</Heading>
-        <StyledPostlink>Animated slider</StyledPostlink>
-        <StyledPostlink>React Redux practise</StyledPostlink>
-        <StyledPostlink>React Router Power</StyledPostlink>
+        <StyledPostlink type="tutorial">Animated slider</StyledPostlink>
+        <StyledPostlink type="tutorial">React Redux practise</StyledPostlink>
+        <StyledPostlink type="tutorial">React Router Power</StyledPostlink>
       </StyledWrapper>
     </StyledWrapper>
   </>

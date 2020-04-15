@@ -1,53 +1,53 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import withContext from 'hoc/withContext';
 import DetailsTemplate from 'templates/DetailsTemplate';
-
-const state = {
-  id: 1,
-  title: 'Writing beautiful JavaScript',
-  content:
-    'Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste enim nam modieos quibusdam maiores labore quisquam fugiat, ab earum? Neque eum architecto, ipsum deleniti corrupti magnam eaque iusto corporis.',
-  image: 'http://localhost:3000/static/media/comp2.61e3a393.jpg',
-};
 
 class DetailsPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      pageType: 'blog',
+      activeItem: {
+        id: '',
+        title: '',
+        content: '',
+        imageUrl: '',
+      },
     };
   }
 
   componentDidMount() {
-    switch (this.props.match.path) {
-      case 'blog':
-        this.setState({ pageType: 'blog' });
-        break;
-      case 'tutorials':
-        this.setState({ pageType: 'tutorials' });
-        break;
+    const { id } = this.props.match.params;
+    const { context } = this.props;
 
-      default:
-        this.setState({ pageType: 'blog' });
-    }
+    axios
+      .get(`http://localhost:8081/${context}/${id}`)
+      .then(({ data }) => this.setState({ activeItem: data }))
+      .catch(err => console.log(err));
   }
 
   render() {
-    const { pageType } = this.state;
+    const { context } = this.props;
+    const { activeItem } = this.state;
+
     return (
       <DetailsTemplate
-        id={state.id}
-        title={state.title}
-        content={state.content}
-        image={state.image}
-        pageType={pageType}
+        id={activeItem.id}
+        title={activeItem.title}
+        content={activeItem.content}
+        image={activeItem.imageUrl}
+        pageType={context}
       />
     );
   }
 }
 
+const mapStateToProps = ({ post }) => ({ post });
+
 DetailsPage.propTypes = {
   match: PropTypes.string.isRequired,
 };
 
-export default DetailsPage;
+export default withContext(connect(mapStateToProps)(DetailsPage));

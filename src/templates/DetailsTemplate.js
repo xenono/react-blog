@@ -10,7 +10,8 @@ import UserPageTemplate from './UserPageTemplate';
 
 const StyledWrapper = styled.div`
   width: 80%;
-  margin: 50px auto;
+  margin: 50px auto 0;
+  min-height: 90vh;
 `;
 const StyledIntro = styled.div`
   display: flex;
@@ -25,6 +26,7 @@ const StyledHeading = styled(Heading)`
   display: inline;
 `;
 const StyledButton = styled(Button)`
+  width: auto;
   text-align: center;
 `;
 
@@ -50,7 +52,7 @@ DetailsTemplate.propTypes = {
   pageType: PropTypes.string,
 };
 DetailsTemplate.defaultProps = {
-  pageType: 'blog',
+  pageType: 'posts',
 };
 
 export default DetailsTemplate;

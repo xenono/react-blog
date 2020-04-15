@@ -1,15 +1,24 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { ThemeProvider } from 'styled-components';
+import styled, { ThemeProvider } from 'styled-components';
 import { withRouter } from 'react-router-dom';
 import { theme } from 'theme/mainTheme';
 import GlobalStyle from 'theme/GlobalStyle';
 import PageContext from 'context';
 
+const StyledWrapper = styled.div`
+  width: 100%;
+  height: 100%;
+  position: relative;
+`;
+
 class MainTemplate extends Component {
-  state = {
-    pageType: 'blog',
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      pageType: 'blog',
+    };
+  }
 
   componentDidMount() {
     this.setCurrentPage();
@@ -20,7 +29,7 @@ class MainTemplate extends Component {
   }
 
   setCurrentPage = (prevState = '') => {
-    const pageTypes = ['blog', 'tutorials'];
+    const pageTypes = ['posts', 'tutorials'];
 
     const {
       location: { pathname },
@@ -37,12 +46,12 @@ class MainTemplate extends Component {
     const { children } = this.props;
     const { pageType } = this.state;
     return (
-      <>
+      <StyledWrapper>
         <PageContext.Provider value={pageType}>
           <GlobalStyle />
           <ThemeProvider theme={theme}>{children}</ThemeProvider>
         </PageContext.Provider>
-      </>
+      </StyledWrapper>
     );
   }
 }

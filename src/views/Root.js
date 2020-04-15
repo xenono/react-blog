@@ -7,6 +7,8 @@ import Homepage from 'views/Homepage';
 import store from 'store';
 import { Provider } from 'react-redux';
 import DetailsPage from './DetailsPage';
+import LoginPage from './LoginPage';
+import Administrator from './Administrator';
 
 const Root = () => (
   <Provider store={store}>
@@ -14,10 +16,12 @@ const Root = () => (
       <MainTemplate>
         <Switch>
           <Route exact path="/" component={Homepage} />
-          <Route exact path="/blog" component={Blog} />
-          <Route path="/blog/:id" component={DetailsPage} />
+          <Route exact path="/posts" component={Blog} />
+          <Route path="/posts/:id" component={DetailsPage} />
           <Route exact path="/tutorials" component={Tutorials} />
           <Route path="/tutorials/:id" component={DetailsPage} />
+          <Route path="/login" component={LoginPage} />
+          <Route path="/administrator" component={Administrator} />
         </Switch>
       </MainTemplate>
     </BrowserRouter>

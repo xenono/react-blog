@@ -28,7 +28,7 @@ const Navigation = ({ primary }) => (
         </Link>
       </li>
       <li>
-        <Link as={NavLink} activeclass="active" to="/blog">
+        <Link as={NavLink} activeclass="active" to="/posts">
           blog
         </Link>
       </li>

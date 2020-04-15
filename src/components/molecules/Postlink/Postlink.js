@@ -18,12 +18,12 @@ const StyledHeading = styled(Heading)`
 const Postlink = ({ children, type }) => (
   <StyledWrapper>
     <StyledHeading>{children}</StyledHeading>
-    <Button>{type === 'post' ? 'Go' : 'Watch'}</Button>
+    <Button>{type === 'post' ? "Let's learn" : 'Watch'}</Button>
   </StyledWrapper>
 );
 
 Postlink.propTypes = {
-  children: PropTypes.arrayOf(PropTypes.object).isRequired,
+  children: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
 };
 export default Postlink;

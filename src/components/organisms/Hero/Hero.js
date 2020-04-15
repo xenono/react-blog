@@ -11,6 +11,7 @@ const StyledWrapper = styled.div`
   background-position: 50% 50%;
   background-repeat: no-repeat;
   background-size: cover;
+  position: relative;
 `;
 const StyledHeading = styled(Heading)`
   text-align: left;

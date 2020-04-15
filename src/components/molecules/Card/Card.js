@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import Image from 'components/atoms/Image/Image';
 import Paragraph from 'components/atoms/Paragraph/Paragraph';
 import Heading from 'components/atoms/Heading/Heading';
-import lionImage from 'assets/lion.jpg';
 
 const StyledWrapper = styled.div`
   max-width: 100%;
