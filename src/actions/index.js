@@ -14,7 +14,6 @@ export const fetchItems = itemType => dispatch => {
   return axios
     .get(`http://localhost:8081/${itemType}`)
     .then(({ data }) => {
-      console.log(data);
       dispatch({
         type: FETCH_SUCCESS,
         payload: {

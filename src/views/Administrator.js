@@ -11,6 +11,7 @@ class Administrator extends Component {
     const { isLogged } = this.props;
 
     if (!isLogged) {
+      alert('You are logged in');
       return <Redirect to="/" />;
     }
     return (

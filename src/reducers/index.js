@@ -3,7 +3,7 @@ import { FETCH_SUCCESS, AUTH_SUCCESS } from 'actions';
 const initialState = {
   posts: [],
   tutorials: [],
-  isLogged: false,
+  isLogged: null,
 };
 
 const rootReducer = (state = initialState, action) => {

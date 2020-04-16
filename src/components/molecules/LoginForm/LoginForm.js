@@ -9,6 +9,7 @@ import Button from 'components/atoms/Button/Button';
 import { authenticateUser } from 'actions';
 
 const StyledWrapper = styled.div`
+  position: relative;
   min-width: 600px;
   display: flex;
   flex-direction: column;
@@ -39,9 +40,9 @@ const StyledErrorMessage = styled(ErrorMessage)`
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   font-weight: bold;
-  bottom: 25px;
+  bottom: 35px;
   padding: 0.3em 0.7em;
   border-radius: 20px;
   background-color: ${({ theme }) => theme.secondary};
@@ -55,7 +56,22 @@ const StyledField = styled(Field)`
   border: none;
   border-bottom: 1px solid ${({ theme }) => theme.primary};
   outline: none;
-  margin-bottom: 3em;
+  margin-bottom: 4em;
+`;
+
+const StyledFormErrorMessage = styled.div`
+  width: 100%;
+  position: absolute;
+  left: 50%;
+  bottom: -20%;
+  transform: translateX(-50%);
+  font-size: 1.7rem;
+  font-weight: bold;
+  text-align: center;
+  padding: 0.3em 0.7em;
+  border-radius: 20px;
+  border: 3px solid ${({ theme }) => theme.tertiary};
+  background-color: ${({ theme }) => theme.secondary};
 `;
 
 class LoginForm extends Component {
@@ -69,27 +85,21 @@ class LoginForm extends Component {
             const errors = {};
 
             if (!values.username) {
-              errors.username = 'Username is required';
+              errors.username = 'How can we log you in without your username?';
             } else if (!values.password) {
-              errors.password = 'Password is required';
+              errors.password = 'You must enter the password';
             }
 
             return errors;
-            // if (!values.email) {
-            //   errors.email = 'Required';
-            // } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
-            //   errors.email = 'Invalid email address';
-            // }
-            // return errors;
           }}
           onSubmit={(values, { setSubmitting }) => {
             this.props.authenticate(values.username, values.password);
             const { isLogged } = this.props;
-            console.log(isLogged, 'endofsubmit');
           }}
         >
-          {({ values, isSubmitting }) => {
+          {({ values }) => {
             const { isLogged } = this.props;
+
             if (isLogged) {
               return <Redirect to="/administrator" />;
             }
@@ -103,9 +113,11 @@ class LoginForm extends Component {
                   <StyledField type="password" name="password" />
                   <StyledErrorMessage name="password" component="div" />
                 </StyledFieldContainer>
-                <Button type="submit" disabled={isSubmitting}>
-                  Submit
-                </Button>
+
+                <Button type="submit">Submit</Button>
+                {isLogged === false && (
+                  <StyledFormErrorMessage>Wrong password or username!!</StyledFormErrorMessage>
+                )}
               </StyledForm>
             );
           }}
@@ -115,7 +127,7 @@ class LoginForm extends Component {
   }
 }
 
-const mapStateToProps = ({ isLogged }) => ({ isLogged });
+const mapStateToProps = ({ isLogged = null }) => ({ isLogged });
 
 const mapDispatchToProps = dispatch => ({
   authenticate: (username, password) => dispatch(authenticateUser(username, password)),
