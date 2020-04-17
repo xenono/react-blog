@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import styled from 'styled-components';
-import LoginPage from 'views/LoginPage';
 import Heading from 'components/atoms/Heading/Heading';
 import Button from 'components/atoms/Button/Button';
 import { authenticateUser } from 'actions';
@@ -45,6 +44,7 @@ const StyledErrorMessage = styled(ErrorMessage)`
   bottom: 35px;
   padding: 0.3em 0.7em;
   border-radius: 20px;
+
   background-color: ${({ theme }) => theme.secondary};
 `;
 const StyledField = styled(Field)`
@@ -94,7 +94,6 @@ class LoginForm extends Component {
           }}
           onSubmit={(values, { setSubmitting }) => {
             this.props.authenticate(values.username, values.password);
-            const { isLogged } = this.props;
           }}
         >
           {({ values }) => {

@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import Paragraph from 'components/atoms/Paragraph/Paragraph';
 
 const StyledWrapper = styled.div`
@@ -9,16 +9,23 @@ const StyledWrapper = styled.div`
   position: absolute;
   bottom: 0;
   width: 100%;
-  height: 35px;
+  height: 4vh;
   background-color: ${({ theme }) => theme.primary};
+
+  ${({ positionStatic }) =>
+    positionStatic &&
+    css`
+      position: static;
+      color: red;
+    `}
 `;
 
 const StyledParagraph = styled(Paragraph)`
   margin: auto 0;
   font-size: 15px;
 `;
-const Footer = () => (
-  <StyledWrapper>
+const Footer = ({ positionStatic }) => (
+  <StyledWrapper positionStatic={positionStatic}>
     <StyledParagraph white>@COPYRIGHTS ADRIAN URBAŃCZYK</StyledParagraph>
   </StyledWrapper>
 );
