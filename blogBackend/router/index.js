@@ -14,7 +14,7 @@ router.get("/tutorials/:id", tutorialController.getTutorialById);
 
 router.put("/updatePost/:id", postController.updatePost);
 
-router.post("/addPost", postController.addPost);
+router.post("/posts/add", postController.addPost);
 router.post("/users", userController.getAllUsers);
 router.post("/getUser", userController.getUserByName);
 

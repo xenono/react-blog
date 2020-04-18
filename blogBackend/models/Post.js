@@ -14,6 +14,10 @@ const PostSchema = new Schema({
         type: String,
         required: true,
     },
+    videoUrl: {
+        type: String,
+        require: false,
+    },
 });
 
 mongoose.model("post", PostSchema);

@@ -9,7 +9,7 @@ const StyledWrapper = styled.div`
   grid-template-columns: repeat(2, 1fr);
   padding: 7.5%;
   grid-column-gap: 10%;
-  grid-row-gap: 5%;
+  grid-row-gap: 75px;
 `;
 const GridTemplate = ({ children }) => <StyledWrapper>{children}</StyledWrapper>;
 

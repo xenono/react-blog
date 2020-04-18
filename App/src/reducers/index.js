@@ -1,4 +1,4 @@
-import { FETCH_SUCCESS, AUTH_SUCCESS } from 'actions';
+import { FETCH_SUCCESS, AUTH_SUCCESS, ADD_ITEM_SUCCESS } from 'actions';
 
 const initialState = {
   posts: [],
@@ -18,6 +18,11 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         isLogged: action.payload.data,
+      };
+    case ADD_ITEM_SUCCESS:
+      return {
+        ...state,
+        [action.payload.itemType]: [...state[action.payload.itemType], action.payload.data],
       };
     default:
       return state;

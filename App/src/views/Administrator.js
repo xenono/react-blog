@@ -5,17 +5,33 @@ import { fetchItems } from 'actions';
 import AdministratorPageTemplate from 'templates/AdministratorPageTemplate';
 import Post from 'components/molecules/Post/Post';
 import Button from 'components/atoms/Button/Button';
+import Radio from 'components/atoms/Radio/Radio';
 import leftArrow from 'assets/leftArrow.svg';
 import rightArrow from 'assets/rightArrow.svg';
+import AddItemForm from 'components/molecules/AddItemForm/AddItemForm';
 
 const StyledWrapper = styled.div`
   height: 86vh;
   display: flex;
+  flex-direction: column;
 `;
 
+const StyledBodyContainer = styled.div`
+  display: flex;
+  height: 100%;
+`;
+const StyledHeader = styled.div`
+  height: 10%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
 const StyledContainer = styled.div`
   width: 50%;
   height: 100%;
+  display: flex;
+  justify-items: center;
+  align-items: center;
 `;
 
 const StyledPostContainer = styled(StyledContainer)`
@@ -53,13 +69,14 @@ class Administrator extends Component {
     super(props);
     this.state = {
       itemIndex: 0,
+      itemType: 'posts',
     };
   }
 
   componentDidMount() {
-    const { fetchPosts, fetchTutorials } = this.props;
-    fetchPosts();
-    fetchTutorials();
+    const { fetchItems } = this.props;
+    const { itemType } = this.state;
+    fetchItems(itemType);
   }
 
   changeItemIndex(actionType, itemsArray) {
@@ -75,28 +92,62 @@ class Administrator extends Component {
     this.setState({ itemIndex: newItemIndex });
   }
 
+  handleRadioButtonChange(itemType) {
+    const { fetchItems } = this.props;
+    this.setState({
+      itemType,
+    });
+    fetchItems(itemType);
+  }
+
   render() {
     const { posts, tutorials } = this.props;
+    const { itemType } = this.state;
+    const itemsArray = itemType === 'posts' ? posts : tutorials;
 
     return (
       <AdministratorPageTemplate>
         <StyledWrapper>
-          <StyledContainer></StyledContainer>
-          <StyledPostContainer>
-            <StyledPostWrapper>
-              <StyledLeftButton
-                arrowBtn
-                leftArrow
-                onClick={() => this.changeItemIndex('decrement', posts)}
-              />
-              <Post {...posts[this.state.itemIndex]} />
-              <StyledRightButton
-                arrowBtn
-                rightArrow
-                onClick={() => this.changeItemIndex('increment', posts)}
-              />
-            </StyledPostWrapper>
-          </StyledPostContainer>
+          <StyledHeader>
+            <Radio
+              type="radio"
+              name="itemType"
+              value="Post"
+              checked={itemType === 'posts'}
+              changeFn={() => this.handleRadioButtonChange('posts')}
+            >
+              Post
+            </Radio>
+            <Radio
+              type="radio"
+              name="itemType"
+              value="Tutorial"
+              checked={itemType === 'tutorials'}
+              changeFn={() => this.handleRadioButtonChange('tutorials')}
+            >
+              Tutorial
+            </Radio>
+          </StyledHeader>
+          <StyledBodyContainer>
+            <StyledContainer>
+              <AddItemForm itemType={itemType} />
+            </StyledContainer>
+            <StyledPostContainer>
+              <StyledPostWrapper>
+                <StyledLeftButton
+                  arrowBtn
+                  leftArrow
+                  onClick={() => this.changeItemIndex('decrement', itemsArray)}
+                />
+                <Post {...itemsArray[this.state.itemIndex]} />
+                <StyledRightButton
+                  arrowBtn
+                  rightArrow
+                  onClick={() => this.changeItemIndex('increment', itemsArray)}
+                />
+              </StyledPostWrapper>
+            </StyledPostContainer>
+          </StyledBodyContainer>
         </StyledWrapper>
       </AdministratorPageTemplate>
     );
@@ -106,8 +157,7 @@ class Administrator extends Component {
 const mapStateToProps = ({ posts, tutorials }) => ({ posts, tutorials });
 
 const mapDispatchToProps = dispatch => ({
-  fetchPosts: () => dispatch(fetchItems('posts')),
-  fetchTutorials: () => dispatch(fetchItems('tutorials')),
+  fetchItems: itemType => dispatch(fetchItems(itemType)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Administrator);

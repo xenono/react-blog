@@ -48,6 +48,7 @@ const mapStateToProps = ({ post }) => ({ post });
 
 DetailsPage.propTypes = {
   match: PropTypes.string.isRequired,
+  context: PropTypes.string.isRequired,
 };
 
 export default withContext(connect(mapStateToProps)(DetailsPage));

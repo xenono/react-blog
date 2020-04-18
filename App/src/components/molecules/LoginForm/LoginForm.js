@@ -5,6 +5,7 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import styled from 'styled-components';
 import Heading from 'components/atoms/Heading/Heading';
 import Button from 'components/atoms/Button/Button';
+import Input from 'components/atoms/Input/Input';
 import { authenticateUser } from 'actions';
 
 const StyledWrapper = styled.div`
@@ -47,17 +48,6 @@ const StyledErrorMessage = styled(ErrorMessage)`
 
   background-color: ${({ theme }) => theme.secondary};
 `;
-const StyledField = styled(Field)`
-  font-size: 2rem;
-  text-align: center;
-  color: black;
-  width: 100%;
-  background: none;
-  border: none;
-  border-bottom: 1px solid ${({ theme }) => theme.primary};
-  outline: none;
-  margin-bottom: 4em;
-`;
 
 const StyledFormErrorMessage = styled.div`
   width: 100%;
@@ -86,14 +76,17 @@ class LoginForm extends Component {
 
             if (!values.username) {
               errors.username = 'How can we log you in without your username?';
-            } else if (!values.password) {
+            }
+            if (!values.password) {
               errors.password = 'You must enter the password';
             }
 
             return errors;
           }}
-          onSubmit={(values, { setSubmitting }) => {
-            this.props.authenticate(values.username, values.password);
+          onSubmit={(values, { resetForm }) => {
+            const { authenticate } = this.props;
+            authenticate(values.username, values.password);
+            resetForm();
           }}
         >
           {({ values }) => {
@@ -105,11 +98,11 @@ class LoginForm extends Component {
             return (
               <StyledForm>
                 <StyledFieldContainer>
-                  <StyledField type="text" name="username" />
+                  <Input as={Field} type="text" name="username" />
                   <StyledErrorMessage name="username" component="div" />
                 </StyledFieldContainer>
                 <StyledFieldContainer>
-                  <StyledField type="password" name="password" />
+                  <Input as={Field} type="password" name="password" />
                   <StyledErrorMessage name="password" component="div" />
                 </StyledFieldContainer>
 
