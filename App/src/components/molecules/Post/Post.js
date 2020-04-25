@@ -44,6 +44,11 @@ class Post extends Component {
 
   render() {
     const { id, title, content, imageUrl, pageType } = this.props;
+    let description = null;
+
+    if (content) {
+      description = content.slice(0, 300);
+    }
 
     if (this.state.redirect) {
       return <Redirect to={`${pageType}/${id}`} />;
@@ -54,7 +59,7 @@ class Post extends Component {
         <StyledImage src={imageUrl} />
         <StyledContent>
           <StyledHeading black>{title}</StyledHeading>
-          <StyledParagraph black>{content}</StyledParagraph>
+          <StyledParagraph black>{description ? description : ''}</StyledParagraph>
           <StyledButton onClick={this.handlePostClick}>
             {pageType === 'tutorials' ? 'Watch now' : 'Read more'}
           </StyledButton>
@@ -65,14 +70,18 @@ class Post extends Component {
 }
 
 Post.propTypes = {
-  id: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
-  content: PropTypes.string.isRequired,
-  imageUrl: PropTypes.string.isRequired,
+  id: PropTypes.string,
+  title: PropTypes.string,
+  content: PropTypes.string,
+  imageUrl: PropTypes.string,
   pageType: PropTypes.string,
 };
 Post.defaultProps = {
-  pageType: 'blog',
+  pageType: 'posts',
+  id: '',
+  title: '',
+  content: '',
+  imageUrl: '',
 };
 
 export default Post;

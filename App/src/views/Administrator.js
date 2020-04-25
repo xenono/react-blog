@@ -9,6 +9,7 @@ import Radio from 'components/atoms/Radio/Radio';
 import leftArrow from 'assets/leftArrow.svg';
 import rightArrow from 'assets/rightArrow.svg';
 import AddItemForm from 'components/molecules/AddItemForm/AddItemForm';
+import LoadingIcon from 'components/atoms/LoadingIcon/LoadingIcon';
 
 const StyledWrapper = styled.div`
   height: 86vh;
@@ -21,9 +22,11 @@ const StyledBodyContainer = styled.div`
   height: 100%;
 `;
 const StyledHeader = styled.div`
+  width: 30%;
   height: 10%;
+  margin: 0 auto;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
 `;
 const StyledContainer = styled.div`
@@ -34,6 +37,9 @@ const StyledContainer = styled.div`
   align-items: center;
 `;
 
+const StyledPost = styled(Post)`
+  max-height: 600px;
+`;
 const StyledPostContainer = styled(StyledContainer)`
   display: flex;
   justify-items: center;
@@ -70,17 +76,21 @@ class Administrator extends Component {
     this.state = {
       itemIndex: 0,
       itemType: 'posts',
+      activeItem: {
+        id: '',
+        title: '',
+        content: '',
+        imageUrl: '',
+        videoUrl: '',
+      },
     };
-  }
-
-  componentDidMount() {
     const { fetchItems } = this.props;
     const { itemType } = this.state;
     fetchItems(itemType);
   }
 
   changeItemIndex(actionType, itemsArray) {
-    const { itemIndex } = this.state;
+    const { itemIndex, activeItem } = this.state;
     let newItemIndex = actionType === 'increment' ? itemIndex + 1 : itemIndex - 1;
 
     if (newItemIndex > itemsArray.length - 1) {
@@ -89,20 +99,22 @@ class Administrator extends Component {
       newItemIndex = itemsArray.length - 1;
     }
 
-    this.setState({ itemIndex: newItemIndex });
+    this.setState({ itemIndex: newItemIndex, activeItem: itemsArray[itemIndex] });
   }
 
-  handleRadioButtonChange(itemType) {
+  handleRadioButtonChange(itemType, itemsArray) {
     const { fetchItems } = this.props;
     this.setState({
       itemType,
+      itemIndex: 0,
     });
+
     fetchItems(itemType);
   }
 
   render() {
     const { posts, tutorials } = this.props;
-    const { itemType } = this.state;
+    const { itemType, itemIndex, activeItem } = this.state;
     const itemsArray = itemType === 'posts' ? posts : tutorials;
 
     return (
@@ -132,19 +144,34 @@ class Administrator extends Component {
             <StyledContainer>
               <AddItemForm itemType={itemType} />
             </StyledContainer>
+
             <StyledPostContainer>
               <StyledPostWrapper>
-                <StyledLeftButton
-                  arrowBtn
-                  leftArrow
-                  onClick={() => this.changeItemIndex('decrement', itemsArray)}
-                />
-                <Post {...itemsArray[this.state.itemIndex]} />
-                <StyledRightButton
-                  arrowBtn
-                  rightArrow
-                  onClick={() => this.changeItemIndex('increment', itemsArray)}
-                />
+                {itemsArray.length ? (
+                  <>
+                    <StyledLeftButton
+                      arrowBtn
+                      leftArrow
+                      onClick={() => this.changeItemIndex('decrement', itemsArray)}
+                    />
+                    <StyledPost {...itemsArray[itemIndex]} />
+                    {/* <StyledPost
+                  id={id}
+                  title={title}
+                  content={content}
+                  imageUrl={imageUrl}
+                  videoUrl={videoUrl}
+                  pageType={itemType}
+                /> */}
+                    <StyledRightButton
+                      arrowBtn
+                      rightArrow
+                      onClick={() => this.changeItemIndex('increment', itemsArray)}
+                    />
+                  </>
+                ) : (
+                  <LoadingIcon />
+                )}
               </StyledPostWrapper>
             </StyledPostContainer>
           </StyledBodyContainer>
@@ -154,7 +181,12 @@ class Administrator extends Component {
   }
 }
 
-const mapStateToProps = ({ posts, tutorials }) => ({ posts, tutorials });
+const mapStateToProps = ({ posts, tutorials }) => {
+  if (posts.length > 0 || tutorials.length > 0) {
+    return { posts, tutorials };
+  }
+  return { posts: [], tutorials: [] };
+};
 
 const mapDispatchToProps = dispatch => ({
   fetchItems: itemType => dispatch(fetchItems(itemType)),

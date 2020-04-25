@@ -6,8 +6,6 @@ const StyledWrapper = styled.div`
   display: flex;
   justify-content: left;
   align-content: center;
-  position: absolute;
-  bottom: 0;
   width: 100%;
   height: 4vh;
   background-color: ${({ theme }) => theme.primary};

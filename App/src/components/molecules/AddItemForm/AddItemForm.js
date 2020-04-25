@@ -80,7 +80,7 @@ const StyledFormErrorMessage = styled.div`
   background-color: ${({ theme }) => theme.secondary};
 `;
 
-const AddItemForm = ({ itemType }) => (
+const AddItemForm = ({ itemType, addItem }) => (
   <StyledWrapper>
     <StyledHeading>Add {itemType.slice(0, itemType.length - 1)}</StyledHeading>
     <StyledFormik
@@ -103,7 +103,6 @@ const AddItemForm = ({ itemType }) => (
         return errors;
       }}
       onSubmit={(values, { resetForm }) => {
-        const { addItem } = this.props;
         addItem(itemType, values);
         resetForm();
       }}

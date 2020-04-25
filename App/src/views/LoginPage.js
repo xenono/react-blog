@@ -4,7 +4,7 @@ import UserPageTemplate from 'templates/UserPageTemplate';
 import LoginForm from 'components/molecules/LoginForm/LoginForm';
 
 const StyledWrapper = styled.div`
-  height: 90vh;
+  height: 86vh;
   display: flex;
   justify-content: center;
   align-items: center;

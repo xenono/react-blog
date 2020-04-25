@@ -13,22 +13,27 @@ try {
 const Post = mongoose.model("post");
 
 const getAllPosts = (req, res) => {
+    // const func = () => {
+    //     return Post.find({})
+    //         .then((posts) => res.send(posts))
+    //         .catch((err) => console.log(err));
+    // };
+
+    // setTimeout(func, 3500);
     Post.find({})
         .then((posts) => res.send(posts))
         .catch((err) => console.log(err));
 };
-const addPost = (req, res) => {
-    const newPost = new Post(req.body);
+const addPost = async (req, res) => {
+    // const newPost = new Post(req.body);
 
-    newPost.save((err, post) => {
-        if (err) {
-            res.status("404").json({
-                error: "Post can't be added.",
-            });
-        } else {
+    try {
+        const newPost = await new Post(req.body).save((err, post) => {
             res.send(post);
-        }
-    });
+        });
+    } catch (err) {
+        console.log(err);
+    }
 };
 
 const deletePost = (req, res) => {
