@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
@@ -9,11 +9,6 @@ import Button from 'components/atoms/Button/Button';
 
 const StyledWrapper = styled.div`
   border: 4px solid ${({ theme }) => theme.primary};
-`;
-const StyledImage = styled(Image)`
-  width: 100%;
-  max-height: 350px;
-  border-bottom: 4px solid ${({ theme }) => theme.primary};
 `;
 const StyledHeading = styled(Heading)`
   font-size: 3rem;
@@ -32,42 +27,31 @@ const StyledContent = styled.div`
   padding: 1rem;
 `;
 
-class Post extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      redirect: false,
-    };
+const Post = ({ id, title, content, imageUrl, pageType }) => {
+  const [willRedirect, setWillRedirect] = useState(false);
+  let description = null;
+
+  if (content) {
+    description = content.slice(0, 300);
   }
 
-  handlePostClick = () => this.setState({ redirect: true });
-
-  render() {
-    const { id, title, content, imageUrl, pageType } = this.props;
-    let description = null;
-
-    if (content) {
-      description = content.slice(0, 300);
-    }
-
-    if (this.state.redirect) {
-      return <Redirect to={`${pageType}/${id}`} />;
-    }
-
-    return (
-      <StyledWrapper>
-        <StyledImage src={imageUrl} />
-        <StyledContent>
-          <StyledHeading black>{title}</StyledHeading>
-          <StyledParagraph black>{description ? description : ''}</StyledParagraph>
-          <StyledButton onClick={this.handlePostClick}>
-            {pageType === 'tutorials' ? 'Watch now' : 'Read more'}
-          </StyledButton>
-        </StyledContent>
-      </StyledWrapper>
-    );
+  if (willRedirect) {
+    return <Redirect to={`${pageType}/${id}`} />;
   }
-}
+
+  return (
+    <StyledWrapper>
+      <Image src={imageUrl} postMiniature />
+      <StyledContent>
+        <StyledHeading black>{title}</StyledHeading>
+        <StyledParagraph black>{description ? description : ''}</StyledParagraph>
+        <StyledButton onClick={() => setWillRedirect(true)}>
+          {pageType === 'tutorials' ? 'Watch now' : 'Read more'}
+        </StyledButton>
+      </StyledContent>
+    </StyledWrapper>
+  );
+};
 
 Post.propTypes = {
   id: PropTypes.string,

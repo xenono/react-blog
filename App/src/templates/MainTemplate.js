@@ -16,7 +16,7 @@ class MainTemplate extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      pageType: 'blog',
+      pageType: 'posts',
     };
   }
 

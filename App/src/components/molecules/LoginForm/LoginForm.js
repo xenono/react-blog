@@ -66,6 +66,10 @@ const StyledFormErrorMessage = styled.div`
 
 class LoginForm extends Component {
   render() {
+    const { isLogged } = this.props;
+    if (isLogged) {
+      return <Redirect to="/administrator" />;
+    }
     return (
       <StyledWrapper>
         <StyledHeading>Login</StyledHeading>
@@ -90,11 +94,6 @@ class LoginForm extends Component {
           }}
         >
           {({ values }) => {
-            const { isLogged } = this.props;
-
-            if (isLogged) {
-              return <Redirect to="/administrator" />;
-            }
             return (
               <StyledForm>
                 <StyledFieldContainer>

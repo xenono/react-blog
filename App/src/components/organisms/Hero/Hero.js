@@ -20,9 +20,10 @@ const StyledHeading = styled(Heading)`
   left: 7%;
   max-width: 55vw;
 `;
+
 const Hero = () => (
   <StyledWrapper>
-    <Navigation />
+    <Navigation transparent />
     <StyledHeading secondary>
       Develop yourself,
       <br /> time is not endless.

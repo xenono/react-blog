@@ -22,6 +22,8 @@ class DetailsPage extends Component {
     const { id } = this.props.match.params;
     const { context } = this.props;
 
+    console.log(context);
+
     axios
       .get(`http://localhost:8081/${context}/${id}`)
       .then(({ data }) => this.setState({ activeItem: data }))

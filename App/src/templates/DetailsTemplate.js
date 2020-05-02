@@ -17,9 +17,6 @@ const StyledIntro = styled.div`
   display: flex;
   justify-content: space-between;
 `;
-const StyledImage = styled(Image)`
-  max-width: 50%;
-`;
 const StyledHeading = styled(Heading)`
   margin: auto 0;
   max-width: 50%;
@@ -34,7 +31,7 @@ const DetailsTemplate = ({ title, content, image, pageType }) => (
   <UserPageTemplate primary>
     <StyledWrapper>
       <StyledIntro>
-        <StyledImage src={image} secondary />
+        <Image src={image} postDetails />
         <StyledHeading black>{title}</StyledHeading>
       </StyledIntro>
       <Paragraph black>{content}</Paragraph>

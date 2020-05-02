@@ -11,7 +11,7 @@ const StyledWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: flex-end;
-  background-color: ${({ primary, theme }) => (primary ? theme.primary : 'transparent')};
+  background: ${({ transparent, theme }) => (transparent ? 'transparent' : theme.primary)};
 `;
 const StyledList = styled.ul`
   width: 50%;
@@ -20,10 +20,10 @@ const StyledList = styled.ul`
   justify-content: space-evenly;
 `;
 
-const Navigation = ({ primary, administratorNav, isLogged }) => {
+const Navigation = ({ transparent, administratorNav, isLogged }) => {
   if (administratorNav) {
     return (
-      <StyledWrapper primary={primary}>
+      <StyledWrapper>
         <StyledList>
           <li>
             <Link href="/" onClick={() => !isLogged}>
@@ -35,7 +35,7 @@ const Navigation = ({ primary, administratorNav, isLogged }) => {
     );
   }
   return (
-    <StyledWrapper primary={primary}>
+    <StyledWrapper transparent={transparent}>
       <StyledList>
         <li>
           <Link exact as={NavLink} activeclass="active" to="/">

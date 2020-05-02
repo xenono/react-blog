@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 import { fetchItems } from 'actions';
 import AdministratorPageTemplate from 'templates/AdministratorPageTemplate';
 import Post from 'components/molecules/Post/Post';
@@ -10,6 +11,7 @@ import leftArrow from 'assets/leftArrow.svg';
 import rightArrow from 'assets/rightArrow.svg';
 import AddItemForm from 'components/molecules/AddItemForm/AddItemForm';
 import LoadingIcon from 'components/atoms/LoadingIcon/LoadingIcon';
+import Modal from 'components/molecules/Modal/Modal';
 
 const StyledWrapper = styled.div`
   height: 86vh;
@@ -69,6 +71,11 @@ const StyledRightButton = styled(StyledButton)`
   background: url(${rightArrow});
   right: -15%;
 `;
+const StyledDeleteButton = styled(StyledButton)`
+  font-size: 2rem;
+  top: -10%;
+  right: 0;
+`;
 
 class Administrator extends Component {
   constructor(props) {
@@ -83,14 +90,30 @@ class Administrator extends Component {
         imageUrl: '',
         videoUrl: '',
       },
+      isModalVisible: false,
     };
-    const { fetchItems } = this.props;
-    const { itemType } = this.state;
-    fetchItems(itemType);
+    props.fetchItems('posts');
+    props.fetchItems('tutorials');
   }
 
+  // componentDidUpdate(prevProps, prevState) {
+  //   const { itemIndex, itemType } = this.state;
+  //   const { posts, tutorials } = this.props;
+  //   const itemsArray = itemType === 'posts' ? posts : tutorials;
+  //   console.log(itemsArray);
+  //   console.log(itemIndex);
+  //   console.log(posts, tutorials);
+  //   const { _id: id, title, content, imageUrl, videoUrl } = itemsArray[itemIndex];
+
+  //   if (prevState.activeItem.id !== id) {
+  //     this.setState({
+  //       activeItem: { id, title, content, imageUrl, videoUrl },
+  //     });
+  //   }
+  // }
+
   changeItemIndex(actionType, itemsArray) {
-    const { itemIndex, activeItem } = this.state;
+    const { itemIndex } = this.state;
     let newItemIndex = actionType === 'increment' ? itemIndex + 1 : itemIndex - 1;
 
     if (newItemIndex > itemsArray.length - 1) {
@@ -102,94 +125,111 @@ class Administrator extends Component {
     this.setState({ itemIndex: newItemIndex, activeItem: itemsArray[itemIndex] });
   }
 
-  handleRadioButtonChange(itemType, itemsArray) {
-    const { fetchItems } = this.props;
+  handleRadioButtonChange(itemType) {
     this.setState({
       itemType,
       itemIndex: 0,
     });
+  }
 
-    fetchItems(itemType);
+  handleModalVisiblity() {
+    this.setState({
+      isModalVisible: !this.state.isModalVisible,
+    });
+  }
+
+  handleDeleteConfirmation() {
+    console.log('deleted');
+    this.handleModalVisiblity();
   }
 
   render() {
     const { posts, tutorials } = this.props;
-    const { itemType, itemIndex, activeItem } = this.state;
+    const { itemType, activeItem, isModalVisible, itemIndex } = this.state;
     const itemsArray = itemType === 'posts' ? posts : tutorials;
+    const { id, title, content, imageUrl, videoUrl } = activeItem;
 
     return (
-      <AdministratorPageTemplate>
-        <StyledWrapper>
-          <StyledHeader>
-            <Radio
-              type="radio"
-              name="itemType"
-              value="Post"
-              checked={itemType === 'posts'}
-              changeFn={() => this.handleRadioButtonChange('posts')}
-            >
-              Post
-            </Radio>
-            <Radio
-              type="radio"
-              name="itemType"
-              value="Tutorial"
-              checked={itemType === 'tutorials'}
-              changeFn={() => this.handleRadioButtonChange('tutorials')}
-            >
-              Tutorial
-            </Radio>
-          </StyledHeader>
-          <StyledBodyContainer>
-            <StyledContainer>
-              <AddItemForm itemType={itemType} />
-            </StyledContainer>
+      <>
+        {isModalVisible && (
+          <Modal
+            onDeclineButton={() => this.handleModalVisiblity()}
+            onAcceptButton={() => this.handleDeleteConfirmation()}
+          />
+        )}
+        <AdministratorPageTemplate>
+          <StyledWrapper>
+            <StyledHeader>
+              <Radio
+                type="radio"
+                name="itemType"
+                value="Post"
+                checked={itemType === 'posts'}
+                changeFn={() => this.handleRadioButtonChange('posts')}
+              >
+                Post
+              </Radio>
+              <Radio
+                type="radio"
+                name="itemType"
+                value="Tutorial"
+                checked={itemType === 'tutorials'}
+                changeFn={() => this.handleRadioButtonChange('tutorials')}
+              >
+                Tutorial
+              </Radio>
+            </StyledHeader>
+            <StyledBodyContainer>
+              <StyledContainer>
+                <AddItemForm itemType={itemType} />
+              </StyledContainer>
 
-            <StyledPostContainer>
-              <StyledPostWrapper>
-                {itemsArray.length ? (
-                  <>
-                    <StyledLeftButton
-                      arrowBtn
-                      leftArrow
-                      onClick={() => this.changeItemIndex('decrement', itemsArray)}
-                    />
-                    <StyledPost {...itemsArray[itemIndex]} />
-                    {/* <StyledPost
-                  id={id}
-                  title={title}
-                  content={content}
-                  imageUrl={imageUrl}
-                  videoUrl={videoUrl}
-                  pageType={itemType}
-                /> */}
-                    <StyledRightButton
-                      arrowBtn
-                      rightArrow
-                      onClick={() => this.changeItemIndex('increment', itemsArray)}
-                    />
-                  </>
-                ) : (
-                  <LoadingIcon />
-                )}
-              </StyledPostWrapper>
-            </StyledPostContainer>
-          </StyledBodyContainer>
-        </StyledWrapper>
-      </AdministratorPageTemplate>
+              <StyledPostContainer>
+                <StyledPostWrapper>
+                  {itemsArray.length ? (
+                    <>
+                      <StyledDeleteButton onClick={() => this.handleModalVisiblity()}>
+                        Delete
+                      </StyledDeleteButton>
+                      <StyledLeftButton
+                        arrowBtn
+                        leftArrow
+                        onClick={() => this.changeItemIndex('decrement', itemsArray)}
+                      />
+                      <StyledPost {...itemsArray[itemIndex]} />
+                      {/* <StyledPost
+                        id={id}
+                        title={title}
+                        content={content}
+                        imageUrl={imageUrl}
+                        videoUrl={videoUrl}
+                        pageType={itemType}
+                      /> */}
+                      <StyledRightButton
+                        arrowBtn
+                        rightArrow
+                        onClick={() => this.changeItemIndex('increment', itemsArray)}
+                      />
+                    </>
+                  ) : (
+                    <LoadingIcon />
+                  )}
+                </StyledPostWrapper>
+              </StyledPostContainer>
+            </StyledBodyContainer>
+          </StyledWrapper>
+        </AdministratorPageTemplate>
+      </>
     );
   }
 }
 
-const mapStateToProps = ({ posts, tutorials }) => {
-  if (posts.length > 0 || tutorials.length > 0) {
-    return { posts, tutorials };
-  }
-  return { posts: [], tutorials: [] };
-};
+const mapStateToProps = ({ posts, tutorials }) => ({ posts, tutorials });
 
 const mapDispatchToProps = dispatch => ({
   fetchItems: itemType => dispatch(fetchItems(itemType)),
 });
+
+Administrator.propTypes = {};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Administrator);

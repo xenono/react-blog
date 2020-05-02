@@ -2,8 +2,9 @@ import React from 'react';
 import UserPageTemplate from 'templates/UserPageTemplate';
 import { connect } from 'react-redux';
 import Post from 'components/molecules/Post/Post';
-import GridTemplate from 'templates/GridTemplate';
 import LoadingIcon from 'components/atoms/LoadingIcon/LoadingIcon';
+import GridTemplate from 'templates/GridTemplate';
+import ItemsListTemplate from 'templates/ItemsListTemplate';
 import { fetchItems } from 'actions';
 
 class Tutorials extends React.Component {
@@ -16,18 +17,7 @@ class Tutorials extends React.Component {
     return (
       <UserPageTemplate primary>
         {tutorials.length ? (
-          <GridTemplate>
-            {tutorials.map(({ _id: id, title, content, imageUrl }) => (
-              <Post
-                id={id}
-                title={title}
-                content={content}
-                imageUrl={imageUrl}
-                key={id}
-                pageType="posts"
-              />
-            ))}
-          </GridTemplate>
+          <ItemsListTemplate itemsArray={tutorials} itemType="tutorials" />
         ) : (
           <LoadingIcon />
         )}

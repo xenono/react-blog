@@ -14,7 +14,6 @@ const rootReducer = (state = initialState, action) => {
         [action.payload.itemType]: [...action.payload.data],
       };
     case AUTH_SUCCESS:
-      console.log(action.payload.data);
       return {
         ...state,
         isLogged: action.payload.data,

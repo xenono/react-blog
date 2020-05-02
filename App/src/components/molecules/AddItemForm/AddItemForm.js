@@ -33,7 +33,7 @@ const StyledTextArea = styled(Input)`
   text-align: left;
   /* background: #808080; */
   border: 2px solid ${({ theme }) => theme.primary};
-  margin-bottom: 4em;
+  margin-bottom: 2em;
 `;
 
 const StyledFieldContainer = styled.div`
@@ -62,21 +62,6 @@ const StyledErrorMessage = styled(ErrorMessage)`
   padding: 0.3em 0.7em;
   border-radius: 20px;
 
-  background-color: ${({ theme }) => theme.secondary};
-`;
-
-const StyledFormErrorMessage = styled.div`
-  width: 100%;
-  position: absolute;
-  left: 50%;
-  bottom: -20%;
-  transform: translateX(-50%);
-  font-size: 1.7rem;
-  font-weight: bold;
-  text-align: center;
-  padding: 0.3em 0.7em;
-  border-radius: 20px;
-  border: 3px solid ${({ theme }) => theme.tertiary};
   background-color: ${({ theme }) => theme.secondary};
 `;
 

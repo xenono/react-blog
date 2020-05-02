@@ -12,6 +12,10 @@ export const ADD_ITEM_REQUEST = 'ADD_ITEM_REQUEST';
 export const ADD_ITEM_SUCCESS = 'ADD_ITEM_SUCCESS';
 export const ADD_ITEM_FAILURE = 'ADD_ITEM_FAILURE';
 
+export const DELETE_ITEM_REQUEST = 'DELETE_ITEM_REQUEST';
+export const DELETE_ITEM_SUCCESS = 'DELETE_ITEM_SUCCESS';
+export const DELETE_ITEM_FAILURE = 'DELETE_ITEM_FAILURE';
+
 export const fetchItems = itemType => dispatch => {
   dispatch({ type: FETCH_REQUEST });
 
@@ -31,6 +35,7 @@ export const fetchItems = itemType => dispatch => {
       dispatch({ type: FETCH_FAILURE });
     });
 };
+
 
 export const authenticateUser = (username, password) => dispatch => {
   dispatch({ type: AUTH_REQUEST });

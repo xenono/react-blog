@@ -3,6 +3,7 @@ const {
     postController,
     tutorialController,
     userController,
+    getAllItems,
 } = require("../controllers");
 
 const router = express.Router();
@@ -13,11 +14,15 @@ router.get("/tutorials", tutorialController.getAllTutorials);
 router.get("/tutorials/:id", tutorialController.getTutorialById);
 
 router.put("/updatePost/:id", postController.updatePost);
+router.put("/updateTutorial/:id", tutorialController.updateTutorial);
 
 router.post("/posts/add", postController.addPost);
+router.post("/tutorials/add", tutorialController.addTutorial);
+
 router.post("/users", userController.getAllUsers);
 router.post("/getUser", userController.getUserByName);
 
 router.delete("/deletePost/:id", postController.deletePost);
+router.delete("/deleteTutorial/:id", tutorialController.deleteTutorial);
 
 module.exports = router;

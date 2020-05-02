@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import Heading from 'components/atoms/Heading/Heading';
-import Post from 'components/molecules/Post/Post';
-import GridTemplate from 'templates/GridTemplate';
-import AuthorImage from 'assets/image-2.jpeg';
 import Image from 'components/atoms/Image/Image';
 import LoadingIcon from 'components/atoms/LoadingIcon/LoadingIcon';
+import AuthorImage from 'assets/image-2.jpeg';
+import Post from 'components/molecules/Post/Post';
+import GridTemplate from 'templates/GridTemplate';
 import UserPageTemplate from 'templates/UserPageTemplate';
+import ItemsListTemplate from 'templates/ItemsListTemplate';
 import { fetchItems } from 'actions';
 
 const StyledParagraphWrapper = styled.div`
@@ -31,18 +32,10 @@ class Blog extends Component {
 
   render() {
     const { posts } = this.props;
-    console.log(posts.length);
-
-    if (!posts.length) {
-      console.log('000');
-    } else {
-      console.log('loaded');
-    }
-
     return (
       <UserPageTemplate primary>
         <StyledGridTemplate>
-          <Image secondary src={AuthorImage} />
+          <Image src={AuthorImage} />
           <StyledParagraphWrapper>
             <StyledParagraph>
               My lovely life cut in small posts. You will read everything about me, my private
@@ -50,22 +43,7 @@ class Blog extends Component {
             </StyledParagraph>
           </StyledParagraphWrapper>
         </StyledGridTemplate>
-        {posts.length ? (
-          <GridTemplate>
-            {posts.map(({ _id: id, title, content, imageUrl }) => (
-              <Post
-                id={id}
-                title={title}
-                content={content}
-                imageUrl={imageUrl}
-                key={id}
-                pageType="posts"
-              />
-            ))}
-          </GridTemplate>
-        ) : (
-          <LoadingIcon />
-        )}
+        {posts.length ? <ItemsListTemplate itemsArray={posts} itemType="posts" /> : <LoadingIcon />}
       </UserPageTemplate>
     );
   }
