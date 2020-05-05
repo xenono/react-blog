@@ -23,7 +23,8 @@
       }
     ],
     "react/prop-types": ["warn"],
-    "no-return-assign": ["off"]
+    "no-return-assign": ["off"],
+    "import/no-unresolved": ["off"]
   },
   "settings": {
     "node": {

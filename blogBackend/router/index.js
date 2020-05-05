@@ -22,7 +22,7 @@ router.post("/tutorials/add", tutorialController.addTutorial);
 router.post("/users", userController.getAllUsers);
 router.post("/getUser", userController.getUserByName);
 
-router.delete("/deletePost/:id", postController.deletePost);
-router.delete("/deleteTutorial/:id", tutorialController.deleteTutorial);
+router.delete("/delete/posts/:id", postController.deletePost);
+router.delete("/delete/tutorials/:id", tutorialController.deleteTutorial);
 
 module.exports = router;

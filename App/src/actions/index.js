@@ -6,6 +6,7 @@ export const AUTH_FAILURE = 'AUTH_FAILURE';
 
 export const FETCH_REQUEST = 'FETCH_REQUEST';
 export const FETCH_SUCCESS = 'FETCH_SUCCESS';
+export const FETCH_ALL_SUCCESS = 'FETCH_ALL_SUCCESS';
 export const FETCH_FAILURE = 'FETCH_FAILURE';
 
 export const ADD_ITEM_REQUEST = 'ADD_ITEM_REQUEST';
@@ -36,6 +37,31 @@ export const fetchItems = itemType => dispatch => {
     });
 };
 
+export const fetchAllItems = () => dispatch => {
+  dispatch({ type: FETCH_REQUEST });
+  const postsRequest = axios.get('http://127.0.0.1:8081/posts');
+  const tutorialsRequest = axios.get('http://127.0.0.1:8081/tutorials');
+
+  return axios
+    .all([postsRequest, tutorialsRequest])
+    .then(
+      axios.spread((postsResponse, tutorialsResponse) => {
+        const posts = postsResponse.data;
+        const tutorials = tutorialsResponse.data;
+        dispatch({
+          type: FETCH_ALL_SUCCESS,
+          payload: {
+            posts,
+            tutorials,
+          },
+        });
+      }),
+    )
+    .catch(err => {
+      console.log(err);
+      dispatch({ type: FETCH_FAILURE });
+    });
+};
 
 export const authenticateUser = (username, password) => dispatch => {
   dispatch({ type: AUTH_REQUEST });
@@ -71,5 +97,25 @@ export const addItem = (itemType, payload) => dispatch => {
     .catch(err => {
       console.log(err);
       dispatch({ type: ADD_ITEM_FAILURE });
+    });
+};
+
+export const deleteItem = (itemType, itemId) => dispatch => {
+  dispatch({ type: DELETE_ITEM_REQUEST });
+
+  return axios
+    .delete(`http://127.0.0.1:8081/delete/${itemType}/${itemId}`)
+    .then(({ data }) =>
+      dispatch({
+        type: DELETE_ITEM_SUCCESS,
+        payload: {
+          itemType,
+          itemId: data.id,
+        },
+      }),
+    )
+    .catch(err => {
+      console.log(err);
+      dispatch({ type: DELETE_ITEM_FAILURE });
     });
 };

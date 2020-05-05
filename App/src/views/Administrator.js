@@ -2,133 +2,57 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { fetchItems } from 'actions';
+import { fetchAllItems, deleteItem } from 'actions';
 import AdministratorPageTemplate from 'templates/AdministratorPageTemplate';
-import Post from 'components/molecules/Post/Post';
+import ItemsSlider from 'components/organisms/ItemsSlider/ItemsSlider';
 import Button from 'components/atoms/Button/Button';
+import Heading from 'components/atoms/Heading/Heading';
 import Radio from 'components/atoms/Radio/Radio';
-import leftArrow from 'assets/leftArrow.svg';
-import rightArrow from 'assets/rightArrow.svg';
 import AddItemForm from 'components/molecules/AddItemForm/AddItemForm';
-import LoadingIcon from 'components/atoms/LoadingIcon/LoadingIcon';
 import Modal from 'components/molecules/Modal/Modal';
+import ItemsListTemplate from 'templates/ItemsListTemplate';
 
 const StyledWrapper = styled.div`
-  height: 86vh;
   display: flex;
   flex-direction: column;
 `;
 
 const StyledBodyContainer = styled.div`
-  display: flex;
+  margin-top: 50px;
   height: 100%;
 `;
 const StyledHeader = styled.div`
   width: 30%;
   height: 10%;
-  margin: 0 auto;
+  margin: 50px auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
 `;
 const StyledContainer = styled.div`
-  width: 50%;
+  width: 100%;
   height: 100%;
   display: flex;
   justify-items: center;
   align-items: center;
 `;
 
-const StyledPost = styled(Post)`
-  max-height: 600px;
-`;
-const StyledPostContainer = styled(StyledContainer)`
-  display: flex;
-  justify-items: center;
-  align-items: center;
-  position: relative;
-`;
-
-const StyledPostWrapper = styled.div`
-  width: 70%;
-  margin: 0 auto;
-  position: relative;
-`;
-
-const StyledButton = styled(Button)`
-  font-size: 5rem;
-  position: absolute;
-  top: 50%;
-`;
-
-const StyledLeftButton = styled(StyledButton)`
-  background: url(${leftArrow});
-  background-color: transparent;
-  left: -15%;
-`;
-
-const StyledRightButton = styled(StyledButton)`
-  background: url(${rightArrow});
-  right: -15%;
-`;
-const StyledDeleteButton = styled(StyledButton)`
-  font-size: 2rem;
-  top: -10%;
-  right: 0;
+const StyledItemsListContainer = styled.div`
+  margin-top: 100px;
 `;
 
 class Administrator extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      itemIndex: 0,
-      itemType: 'posts',
-      activeItem: {
-        id: '',
-        title: '',
-        content: '',
-        imageUrl: '',
-        videoUrl: '',
-      },
+      currentItemType: 'posts',
       isModalVisible: false,
     };
-    props.fetchItems('posts');
-    props.fetchItems('tutorials');
   }
 
-  // componentDidUpdate(prevProps, prevState) {
-  //   const { itemIndex, itemType } = this.state;
-  //   const { posts, tutorials } = this.props;
-  //   const itemsArray = itemType === 'posts' ? posts : tutorials;
-  //   console.log(itemsArray);
-  //   console.log(itemIndex);
-  //   console.log(posts, tutorials);
-  //   const { _id: id, title, content, imageUrl, videoUrl } = itemsArray[itemIndex];
-
-  //   if (prevState.activeItem.id !== id) {
-  //     this.setState({
-  //       activeItem: { id, title, content, imageUrl, videoUrl },
-  //     });
-  //   }
-  // }
-
-  changeItemIndex(actionType, itemsArray) {
-    const { itemIndex } = this.state;
-    let newItemIndex = actionType === 'increment' ? itemIndex + 1 : itemIndex - 1;
-
-    if (newItemIndex > itemsArray.length - 1) {
-      newItemIndex = 0;
-    } else if (newItemIndex < 0) {
-      newItemIndex = itemsArray.length - 1;
-    }
-
-    this.setState({ itemIndex: newItemIndex, activeItem: itemsArray[itemIndex] });
-  }
-
-  handleRadioButtonChange(itemType) {
+  handleRadioButtonChange(currentItemType) {
     this.setState({
-      itemType,
-      itemIndex: 0,
+      currentItemType,
     });
   }
 
@@ -138,16 +62,8 @@ class Administrator extends Component {
     });
   }
 
-  handleDeleteConfirmation() {
-    console.log('deleted');
-    this.handleModalVisiblity();
-  }
-
   render() {
-    const { posts, tutorials } = this.props;
-    const { itemType, activeItem, isModalVisible, itemIndex } = this.state;
-    const itemsArray = itemType === 'posts' ? posts : tutorials;
-    const { id, title, content, imageUrl, videoUrl } = activeItem;
+    const { isModalVisible, currentItemType } = this.state;
 
     return (
       <>
@@ -162,18 +78,18 @@ class Administrator extends Component {
             <StyledHeader>
               <Radio
                 type="radio"
-                name="itemType"
+                name="currentItemType"
                 value="Post"
-                checked={itemType === 'posts'}
+                checked={currentItemType === 'posts'}
                 changeFn={() => this.handleRadioButtonChange('posts')}
               >
                 Post
               </Radio>
               <Radio
                 type="radio"
-                name="itemType"
+                name="currentItemType"
                 value="Tutorial"
-                checked={itemType === 'tutorials'}
+                checked={currentItemType === 'tutorials'}
                 changeFn={() => this.handleRadioButtonChange('tutorials')}
               >
                 Tutorial
@@ -181,41 +97,12 @@ class Administrator extends Component {
             </StyledHeader>
             <StyledBodyContainer>
               <StyledContainer>
-                <AddItemForm itemType={itemType} />
+                <AddItemForm itemType={currentItemType} />
               </StyledContainer>
-
-              <StyledPostContainer>
-                <StyledPostWrapper>
-                  {itemsArray.length ? (
-                    <>
-                      <StyledDeleteButton onClick={() => this.handleModalVisiblity()}>
-                        Delete
-                      </StyledDeleteButton>
-                      <StyledLeftButton
-                        arrowBtn
-                        leftArrow
-                        onClick={() => this.changeItemIndex('decrement', itemsArray)}
-                      />
-                      <StyledPost {...itemsArray[itemIndex]} />
-                      {/* <StyledPost
-                        id={id}
-                        title={title}
-                        content={content}
-                        imageUrl={imageUrl}
-                        videoUrl={videoUrl}
-                        pageType={itemType}
-                      /> */}
-                      <StyledRightButton
-                        arrowBtn
-                        rightArrow
-                        onClick={() => this.changeItemIndex('increment', itemsArray)}
-                      />
-                    </>
-                  ) : (
-                    <LoadingIcon />
-                  )}
-                </StyledPostWrapper>
-              </StyledPostContainer>
+              <StyledItemsListContainer>
+                <Heading>Find {currentItemType.slice(0, currentItemType.length - 1)}</Heading>
+                <ItemsListTemplate itemType={currentItemType} />
+              </StyledItemsListContainer>
             </StyledBodyContainer>
           </StyledWrapper>
         </AdministratorPageTemplate>
@@ -224,12 +111,6 @@ class Administrator extends Component {
   }
 }
 
-const mapStateToProps = ({ posts, tutorials }) => ({ posts, tutorials });
-
-const mapDispatchToProps = dispatch => ({
-  fetchItems: itemType => dispatch(fetchItems(itemType)),
-});
-
 Administrator.propTypes = {};
 
-export default connect(mapStateToProps, mapDispatchToProps)(Administrator);
+export default Administrator;
