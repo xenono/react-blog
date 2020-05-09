@@ -2,15 +2,16 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { fetchAllItems, deleteItem } from 'actions';
+import { deleteItem } from 'actions';
 import AdministratorPageTemplate from 'templates/AdministratorPageTemplate';
-import ItemsSlider from 'components/organisms/ItemsSlider/ItemsSlider';
 import Button from 'components/atoms/Button/Button';
 import Heading from 'components/atoms/Heading/Heading';
 import Radio from 'components/atoms/Radio/Radio';
 import AddItemForm from 'components/molecules/AddItemForm/AddItemForm';
 import Modal from 'components/molecules/Modal/Modal';
-import ItemsListTemplate from 'templates/ItemsListTemplate';
+import AdminItemsList from 'components/organisms/AdminItemsList/AdminItemsList';
+import Input from 'components/atoms/Input/Input';
+import SearchIcon from 'assets/searchIcon.svg';
 
 const StyledWrapper = styled.div`
   display: flex;
@@ -41,12 +42,38 @@ const StyledItemsListContainer = styled.div`
   margin-top: 100px;
 `;
 
+const StyledSearchInput = styled(Input)`
+  background-color: #cfcaca75;
+  border: none;
+  width: 250px;
+  border-radius: 50px;
+  margin-bottom: 0;
+  padding: 10px 20px;
+`;
+
+const StyledLabel = styled.label`
+  font-size: 5rem;
+  font-weight: bold;
+  color: ${({ theme }) => theme.primary};
+  margin-bottom: 20px;
+  text-shadow: 1.2px 1.2px 2.2px #000;
+`;
+const StyledSearchInputWrapper = styled.div`
+  width: 85%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+`;
+
 class Administrator extends Component {
   constructor(props) {
     super(props);
     this.state = {
       currentItemType: 'posts',
       isModalVisible: false,
+      searchInputValue: '',
     };
   }
 
@@ -62,8 +89,14 @@ class Administrator extends Component {
     });
   }
 
+  updateSearchInputValue(e) {
+    this.setState({
+      searchInputValue: e.target.value,
+    });
+  }
+
   render() {
-    const { isModalVisible, currentItemType } = this.state;
+    const { isModalVisible, currentItemType, searchInputValue } = this.state;
 
     return (
       <>
@@ -100,8 +133,21 @@ class Administrator extends Component {
                 <AddItemForm itemType={currentItemType} />
               </StyledContainer>
               <StyledItemsListContainer>
-                <Heading>Find {currentItemType.slice(0, currentItemType.length - 1)}</Heading>
-                <ItemsListTemplate itemType={currentItemType} />
+                <StyledSearchInputWrapper>
+                  <StyledLabel htmlFor="search">
+                    Find {currentItemType.slice(0, currentItemType.length - 1)}
+                  </StyledLabel>
+                  {/* <SearchIcon /> */}
+                  <StyledSearchInput
+                    id="search"
+                    name="search"
+                    placeholder="Search"
+                    onChange={e => this.updateSearchInputValue(e)}
+                    value={searchInputValue}
+                  />
+                </StyledSearchInputWrapper>
+
+                <AdminItemsList itemType={currentItemType} searchFilter={searchInputValue} />
               </StyledItemsListContainer>
             </StyledBodyContainer>
           </StyledWrapper>

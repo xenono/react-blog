@@ -29,7 +29,7 @@ const StyledContent = styled.div`
 
 const Post = ({ id, title, content, imageUrl, pageType }) => {
   const [willRedirect, setWillRedirect] = useState(false);
-  let description = null;
+  let description = '';
 
   if (content) {
     description = content.slice(0, 300);
@@ -38,13 +38,12 @@ const Post = ({ id, title, content, imageUrl, pageType }) => {
   if (willRedirect) {
     return <Redirect to={`${pageType}/${id}`} />;
   }
-
   return (
     <StyledWrapper>
       <Image src={imageUrl} postMiniature />
       <StyledContent>
         <StyledHeading black>{title}</StyledHeading>
-        <StyledParagraph black>{description ? description : ''}</StyledParagraph>
+        <StyledParagraph black>{description}</StyledParagraph>
         <StyledButton onClick={() => setWillRedirect(true)}>
           {pageType === 'tutorials' ? 'Watch now' : 'Read more'}
         </StyledButton>

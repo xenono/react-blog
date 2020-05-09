@@ -6,7 +6,6 @@ const Button = styled.button`
   width: 150px;
   background-color: ${({ theme }) => theme.primary};
   box-shadow: none;
-  /* border: 1px solid black; */
   border-radius: 10px;
   border: none;
   font-weight: bold;

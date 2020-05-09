@@ -4,7 +4,7 @@ import Image from 'components/atoms/Image/Image';
 import AuthorImage from 'assets/image-2.jpeg';
 import GridTemplate from 'templates/GridTemplate';
 import UserPageTemplate from 'templates/UserPageTemplate';
-import ItemsListTemplate from 'templates/ItemsListTemplate';
+import ItemsList from 'components/organisms/ItemsList/ItemsList';
 
 const StyledParagraphWrapper = styled.div`
   display: flex;
@@ -31,7 +31,7 @@ const Blog = () => (
         </StyledParagraph>
       </StyledParagraphWrapper>
     </StyledGridTemplate>
-    <ItemsListTemplate itemType="posts" />
+    <ItemsList itemType="posts" />
   </UserPageTemplate>
 );
 

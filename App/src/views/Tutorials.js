@@ -1,10 +1,10 @@
 import React from 'react';
 import UserPageTemplate from 'templates/UserPageTemplate';
-import ItemsListTemplate from 'templates/ItemsListTemplate';
+import ItemsList from 'components/organisms/ItemsList/ItemsList';
 
 const Tutorials = () => (
   <UserPageTemplate primary>
-    <ItemsListTemplate itemType="tutorials" />
+    <ItemsList itemType="tutorials" />
   </UserPageTemplate>
 );
 
