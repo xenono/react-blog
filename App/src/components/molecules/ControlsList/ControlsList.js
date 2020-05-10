@@ -1,61 +1,108 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
-import gsap from 'gsap';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import Button from 'components/atoms/Button/Button';
+import GearIcon from 'assets/symbol.png';
 import Modal from 'components/molecules/Modal/Modal';
+import VerticalList from 'components/molecules/VerticalList/VerticalList';
+import { deleteItem as deletOneItem } from 'actions';
+import UpdateItemModal from 'components/organisms/UpdateItemModal/UpdateItemModal';
 
-const StyledList = styled.ul`
-  min-width: 150px;
-  height: 0;
-  z-index: 999;
-  font-size: 1.6rem;
-  text-align: center;
-  margin: 0;
-  padding: 0;
-  background-color: white;
-  list-style: none;
-  border: 2px solid ${({ theme }) => theme.primary};
+const StyledGearButton = styled(Button)`
+  width: 50px;
+  height: 50px;
+  background-image: url(${GearIcon});
+  background-position: center;
+  background-size: 40px;
+  background-repeat: no-repeat;
+  border-radius: 0;
+  margin: 0 0 0 auto;
+`;
+const StyledControlsList = styled.div`
+  position: absolute;
+  top: 0;
+  right: 0;
 `;
 
-const StyledListItem = styled.li`
-  opacity: 0;
-  border-bottom: 2px solid #cfcaca75;
-  padding: 10px 0;
-  width: 100%;
+const ControlsWrapper = styled.div``;
 
-  &:hover,
-  &:focus {
-    background-color: #d3d3d3;
-    cursor: pointer;
-  }
-  &:last-child {
-    border-bottom: none;
-  }
-`;
-const ControlsList = () => {
-  const [isModalVisible, setModalVisibility] = useState(false);
-  const listContainer = useRef(null);
-  const tl = gsap.timeline();
+const ControlsList = ({
+  itemType,
+  itemId,
+  itemTitle,
+  itemContent,
+  itemImageUrl,
+  itemVideoUrl,
+  deleteItem,
+}) => {
+  const [areControlsVisible, setControlsVisibility] = useState(false);
+  const [isConfirmationModalVisible, setConfirmationModalVisibility] = useState(false);
+  const [isUpdateModalVisible, setUpdateModalVisibility] = useState(false);
+  const controlsWrapper = useRef(null);
+
+  const outsideClickListener = event => {
+    if (!controlsWrapper.current || controlsWrapper.current.contains(event.target)) {
+      return;
+    }
+    setControlsVisibility(false);
+  };
 
   useEffect(() => {
-    gsap.set(listContainer.current, { transformOrigin: 'top', height: '0px' });
+    document.addEventListener('mousedown', outsideClickListener);
 
-    tl.fromTo(listContainer.current, { height: '0' }, { height: '82px', duration: 0.65 }).fromTo(
-      [...listContainer.current.children],
-      { opacity: 0 },
-      { opacity: 1, stagger: 0.19, delay: 0.1 },
-      '-=0.6',
-    );
-  }, []);
+    return () => {
+      document.removeEventListener('mousedown', outsideClickListener);
+    };
+  });
+
+  const handleDeleteAction = () => {
+    deleteItem(itemType, itemId);
+    setConfirmationModalVisibility(!isConfirmationModalVisible);
+  };
+
+  const handleUpdateAction = () => {};
 
   return (
-    <>
-      {isModalVisible && <Modal onDeclineButton={() => setModalVisibility(!isModalVisible)} />}
-      <StyledList ref={listContainer}>
-        <StyledListItem onClick={() => setModalVisibility(!isModalVisible)}>Delete</StyledListItem>
-        <StyledListItem>Update</StyledListItem>
-      </StyledList>
-    </>
+    <StyledControlsList>
+      {isConfirmationModalVisible && (
+        <Modal
+          onDeclineButton={() => setConfirmationModalVisibility(!isConfirmationModalVisible)}
+          onAcceptButton={handleDeleteAction}
+        />
+      )}
+      {isUpdateModalVisible && (
+        <UpdateItemModal
+          itemType={itemType}
+          itemId={itemId}
+          title={itemTitle}
+          content={itemContent}
+          imageUrl={itemImageUrl}
+          videoUrl={itemVideoUrl}
+          onExitAction={() => setUpdateModalVisibility(!isUpdateModalVisible)}
+        />
+      )}
+      <ControlsWrapper ref={controlsWrapper}>
+        <StyledGearButton onClick={() => setControlsVisibility(!areControlsVisible)} />
+        {areControlsVisible && (
+          <VerticalList
+            onDeleteAction={() => setConfirmationModalVisibility(!isConfirmationModalVisible)}
+            onUpdateAction={() => setUpdateModalVisibility(!isUpdateModalVisible)}
+          />
+        )}
+      </ControlsWrapper>
+    </StyledControlsList>
   );
 };
 
-export default ControlsList;
+const mapDispatchToProps = dispatch => ({
+  deleteItem: (itemType, itemId) => dispatch(deletOneItem(itemType, itemId)),
+});
+
+ControlsList.propTypes = {
+  itemId: PropTypes.string.isRequired,
+  itemType: PropTypes.string.isRequired,
+  deleteItem: PropTypes.func.isRequired,
+};
+
+export default connect(null, mapDispatchToProps)(ControlsList);

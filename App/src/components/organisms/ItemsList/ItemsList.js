@@ -6,7 +6,7 @@ import LoadingIcon from 'components/atoms/LoadingIcon/LoadingIcon';
 import Post from 'components/molecules/Post/Post';
 import GridTemplate from '../../../templates/GridTemplate';
 
-const ItemsList = ({ itemsArray, itemType, fetchItems, searchFilter }) => {
+const ItemsList = ({ itemsArray, itemType, fetchItems }) => {
   useEffect(() => {
     fetchItems(itemType);
   });
@@ -42,12 +42,10 @@ ItemsList.propTypes = {
   fetchItems: PropTypes.func.isRequired,
   itemType: PropTypes.string,
   itemsArray: PropTypes.arrayOf(PropTypes.object).isRequired,
-  searchFilter: PropTypes.string,
 };
 
 ItemsList.defaultProps = {
   itemType: 'posts',
-  searchFilter: '',
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ItemsList);

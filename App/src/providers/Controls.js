@@ -1,17 +1,4 @@
-import React, { useState } from 'react';
-
-// const Controls = props => {
-//   const [areControlsVisible, setControlsVisiblity] = useState(false);
-
-//   const renderProps = {
-//     areControlsVisible,
-//     setControlsVisiblity,
-//   };
-
-//   return props.render(renderProps);
-// };
-
-// export default Controls;
+import React from 'react';
 
 class Controls extends React.Component {
   constructor(props) {

@@ -33,7 +33,7 @@ const StyledTextArea = styled(Input)`
   text-align: left;
   /* background: #808080; */
   border: 2px solid ${({ theme }) => theme.primary};
-  margin-bottom: 2em;
+  margin-bottom: 4em;
 `;
 
 const StyledFieldContainer = styled.div`

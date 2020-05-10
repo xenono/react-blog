@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import withContext from 'hoc/withContext';
 
 const StyledWrapper = styled.div`
@@ -10,8 +10,17 @@ const StyledWrapper = styled.div`
   padding: 7.5%;
   grid-column-gap: 10%;
   grid-row-gap: 75px;
+
+  ${({ childrenLength }) =>
+    childrenLength === 1 &&
+    css`
+      grid-template-columns: repeat(1, 1fr);
+      padding: 15% 33%;
+    `}
 `;
-const GridTemplate = ({ children }) => <StyledWrapper>{children}</StyledWrapper>;
+const GridTemplate = ({ children }) => {
+  return <StyledWrapper childrenLength={React.Children.count(children)}>{children}</StyledWrapper>;
+};
 
 GridTemplate.propTypes = {
   children: PropTypes.arrayOf(PropTypes.object).isRequired,
