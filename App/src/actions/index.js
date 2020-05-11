@@ -17,6 +17,10 @@ export const DELETE_ITEM_REQUEST = 'DELETE_ITEM_REQUEST';
 export const DELETE_ITEM_SUCCESS = 'DELETE_ITEM_SUCCESS';
 export const DELETE_ITEM_FAILURE = 'DELETE_ITEM_FAILURE';
 
+export const UPDATE_ITEM_REQUEST = 'UPDATE_ITEM_REQUEST';
+export const UPDATE_ITEM_SUCCESS = 'UPDATE_ITEM_SUCCESS';
+export const UPDATE_ITEM_FAILURE = 'UPDATE_ITEM_FAILURE';
+
 export const fetchItems = itemType => dispatch => {
   dispatch({ type: FETCH_REQUEST });
 
@@ -117,5 +121,24 @@ export const deleteItem = (itemType, itemId) => dispatch => {
     .catch(err => {
       console.log(err);
       dispatch({ type: DELETE_ITEM_FAILURE });
+    });
+};
+export const updateItem = (itemType, item) => dispatch => {
+  dispatch({ type: UPDATE_ITEM_REQUEST });
+
+  return axios
+    .put(`http://127.0.0.1:8081/${itemType}/update/${item.id}`, item)
+    .then(({ data }) => {
+      dispatch({
+        type: UPDATE_ITEM_SUCCESS,
+        payload: {
+          itemType,
+          data,
+        },
+      });
+    })
+    .catch(err => {
+      console.log(err);
+      dispatch({ type: UPDATE_ITEM_FAILURE });
     });
 };

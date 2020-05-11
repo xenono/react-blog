@@ -13,8 +13,8 @@ router.get("/posts/:id", postController.getPostById);
 router.get("/tutorials", tutorialController.getAllTutorials);
 router.get("/tutorials/:id", tutorialController.getTutorialById);
 
-router.put("/updatePost/:id", postController.updatePost);
-router.put("/updateTutorial/:id", tutorialController.updateTutorial);
+router.put("/posts/update/:id", postController.updatePost);
+router.put("/tutorials/update/:id", tutorialController.updateTutorial);
 
 router.post("/posts/add", postController.addPost);
 router.post("/tutorials/add", tutorialController.addTutorial);

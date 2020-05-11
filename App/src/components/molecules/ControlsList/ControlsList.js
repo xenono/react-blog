@@ -60,9 +60,6 @@ const ControlsList = ({
     deleteItem(itemType, itemId);
     setConfirmationModalVisibility(!isConfirmationModalVisible);
   };
-
-  const handleUpdateAction = () => {};
-
   return (
     <StyledControlsList>
       {isConfirmationModalVisible && (
@@ -74,7 +71,7 @@ const ControlsList = ({
       {isUpdateModalVisible && (
         <UpdateItemModal
           itemType={itemType}
-          itemId={itemId}
+          id={itemId}
           title={itemTitle}
           content={itemContent}
           imageUrl={itemImageUrl}

@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import Post from 'components/molecules/Post/Post';
 import Heading from 'components/atoms/Heading/Heading';
 import Input from 'components/atoms/Input/Input';
 import Button from 'components/atoms/Button/Button';
+import { updateItem as updateItemById } from 'actions';
 
 const StyledWrapper = styled.div`
   z-index: 999;
@@ -98,9 +100,18 @@ const ExitButton = styled(Button)`
   top: 7.5%;
 `;
 
-const UpdateItemModal = ({ itemType, id, title, content, imageUrl, videoUrl, onExitAction }) => {
+const UpdateItemModal = ({
+  itemType,
+  id,
+  title,
+  content,
+  imageUrl,
+  videoUrl,
+  onExitAction,
+  updateItem,
+}) => {
   const [currentValues, setCurrentValues] = useState({
-    id: '',
+    id,
     title: '',
     content: '',
     imageUrl: '',
@@ -134,7 +145,9 @@ const UpdateItemModal = ({ itemType, id, title, content, imageUrl, videoUrl, onE
                 return errors;
               }}
               onSubmit={(values, { resetForm }) => {
+                updateItem(itemType, values);
                 resetForm();
+                onExitAction();
               }}
             >
               {({ values, handleBlur, handleChange }) => {
@@ -217,4 +230,8 @@ UpdateItemModal.propTypes = {
   onExitAction: PropTypes.func.isRequired,
 };
 
-export default UpdateItemModal;
+const mapDispatchToProps = dispatch => ({
+  updateItem: (itemType, data) => dispatch(updateItemById(itemType, data)),
+});
+
+export default connect(null, mapDispatchToProps)(UpdateItemModal);

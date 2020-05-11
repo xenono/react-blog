@@ -4,6 +4,7 @@ import {
   ADD_ITEM_SUCCESS,
   FETCH_ALL_SUCCESS,
   DELETE_ITEM_SUCCESS,
+  UPDATE_ITEM_SUCCESS,
 } from 'actions';
 
 const initialState = {
@@ -43,6 +44,17 @@ const rootReducer = (state = initialState, action) => {
           ...state[action.payload.itemType].filter(item => item.id !== action.payload.itemId),
         ],
       };
+
+    case UPDATE_ITEM_SUCCESS: {
+      const updatedItemIndex = state[action.payload.itemType].findIndex(
+        item => item._id === action.payload.data.id,
+      );
+
+      return {
+        ...state,
+        [action.payload.itemType[updatedItemIndex]]: action.payload.data,
+      };
+    }
     default:
       return state;
   }
