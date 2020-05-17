@@ -5,12 +5,14 @@ import {
   FETCH_ALL_SUCCESS,
   DELETE_ITEM_SUCCESS,
   UPDATE_ITEM_SUCCESS,
+  FETCH_FAILURE,
 } from 'actions';
 
 const initialState = {
   posts: [],
   tutorials: [],
   isLogged: null,
+  isError: false,
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -20,6 +22,12 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         [action.payload.itemType]: [...action.payload.data],
       };
+    case FETCH_FAILURE: {
+      return {
+        ...state,
+        isError: true,
+      };
+    }
     case FETCH_ALL_SUCCESS:
       return {
         ...state,
@@ -30,7 +38,7 @@ const rootReducer = (state = initialState, action) => {
     case AUTH_SUCCESS:
       return {
         ...state,
-        isLogged: action.payload.data,
+        isLogged: true,
       };
     case ADD_ITEM_SUCCESS:
       return {

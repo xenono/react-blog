@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import backgroundImage from 'assets/mountains.jpg';
-import Navigation from 'components/molecules/Navigation/Navigation';
 import Heading from 'components/atoms/Heading/Heading';
+import Header from 'components/organisms/Header/Header';
 
 const StyledWrapper = styled.div`
   height: 100vh;
@@ -23,7 +23,7 @@ const StyledHeading = styled(Heading)`
 
 const Hero = () => (
   <StyledWrapper>
-    <Navigation transparent />
+    <Header transparent />
     <StyledHeading secondary>
       Develop yourself,
       <br /> time is not endless.

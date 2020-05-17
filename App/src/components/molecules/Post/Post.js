@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
@@ -40,7 +40,7 @@ const Post = ({ id, title, content, imageUrl, pageType }) => {
   }
   return (
     <StyledWrapper>
-      <Image src={imageUrl} postMiniature />
+      <Image src={imageUrl} postMiniature="true" />
       <StyledContent>
         <StyledHeading black>{title}</StyledHeading>
         <StyledParagraph black>{description}</StyledParagraph>

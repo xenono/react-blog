@@ -13,7 +13,7 @@ const StyledWrapper = styled.div`
   background-color: rgba(0, 0, 0, 0.3);
 `;
 
-const StyleModal = styled.div`
+const StyledPopUp = styled.div`
   width: 50%;
   height: 300px;
   background-color: white;
@@ -40,7 +40,8 @@ const StyledButtonsWrapper = styled.div`
   align-items: space-between;
 `;
 const StyledHeading = styled(Heading)`
-  font-size: 4.5rem;
+  width: 85%;
+  font-size: 4rem;
   margin-top: 0;
 `;
 
@@ -50,18 +51,17 @@ const StyledButton = styled(Button)`
   width: 200px;
 `;
 
-const Modal = ({ onDeclineButton, onAcceptButton }) => (
+const PopUp = ({ onConfirmationAction }) => (
   <StyledWrapper>
-    <StyleModal>
+    <StyledPopUp>
       <StyledContentWrapper>
-        <StyledHeading>Do you want to delete this item?</StyledHeading>
+        <StyledHeading>There is a problem with server. Please come back later.</StyledHeading>
         <StyledButtonsWrapper>
-          <StyledButton onClick={onDeclineButton}>No</StyledButton>
-          <StyledButton onClick={onAcceptButton}>Yes</StyledButton>
+          <StyledButton onClick={onConfirmationAction}>Ok</StyledButton>
         </StyledButtonsWrapper>
       </StyledContentWrapper>
-    </StyleModal>
+    </StyledPopUp>
   </StyledWrapper>
 );
 
-export default Modal;
+export default PopUp;

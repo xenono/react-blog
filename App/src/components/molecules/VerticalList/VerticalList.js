@@ -43,7 +43,7 @@ const VerticalList = ({ onDeleteAction, onUpdateAction }) => {
       { opacity: 1, stagger: 0.19, delay: 0.1 },
       '-=0.6',
     );
-  }, []);
+  });
 
   return (
     <StyledList ref={list}>

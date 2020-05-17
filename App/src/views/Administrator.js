@@ -1,17 +1,11 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import styled from 'styled-components';
-import PropTypes from 'prop-types';
-import { deleteItem } from 'actions';
 import AdministratorPageTemplate from 'templates/AdministratorPageTemplate';
-import Button from 'components/atoms/Button/Button';
-import Heading from 'components/atoms/Heading/Heading';
 import Radio from 'components/atoms/Radio/Radio';
 import AddItemForm from 'components/molecules/AddItemForm/AddItemForm';
 import Modal from 'components/molecules/Modal/Modal';
 import AdminItemsList from 'components/organisms/AdminItemsList/AdminItemsList';
 import Input from 'components/atoms/Input/Input';
-import SearchIcon from 'assets/searchIcon.svg';
 
 const StyledWrapper = styled.div`
   display: flex;

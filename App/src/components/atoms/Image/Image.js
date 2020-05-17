@@ -17,7 +17,7 @@ const StyledImage = styled.img`
     (postMiniature &&
       css`
         width: 100%;
-        height: 400px;
+        max-height: 400px;
         border: none;
         border-bottom: 4px solid ${({ theme }) => theme.primary};
       `) ||
@@ -31,8 +31,8 @@ const Image = ({ circle, src, postMiniature, postDetails }) => (
   <StyledImage
     as={Img}
     circle={circle}
-    postMiniature={postMiniature}
-    postDetails={postDetails}
+    miniature={postMiniature}
+    details={postDetails}
     src={src}
     loader={<LoadingIcon />}
   />

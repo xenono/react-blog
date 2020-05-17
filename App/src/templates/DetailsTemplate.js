@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import ReactPlayer from 'react-player';
 import Heading from 'components/atoms/Heading/Heading';
 import Paragraph from 'components/atoms/Paragraph/Paragraph';
 import Image from 'components/atoms/Image/Image';
@@ -27,11 +28,17 @@ const StyledButton = styled(Button)`
   text-align: center;
 `;
 
-const DetailsTemplate = ({ title, content, image, pageType }) => (
+const DetailsTemplate = ({ title, content, image, pageType, video }) => (
   <UserPageTemplate primary>
     <StyledWrapper>
       <StyledIntro>
-        <Image src={image} postDetails />
+        {video ? (
+          <>
+            <ReactPlayer url={video} />
+          </>
+        ) : (
+          <Image src={image} postDetails />
+        )}
         <StyledHeading black>{title}</StyledHeading>
       </StyledIntro>
       <Paragraph black>{content}</Paragraph>

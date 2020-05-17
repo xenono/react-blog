@@ -1,17 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Navigation from 'components/molecules/Navigation/Navigation';
+import Header from 'components/organisms/Header/Header';
 import Footer from 'components/molecules/Footer/Footer';
 
-const UserPageTemplate = ({ children }) => (
-  <>
-    <Navigation />
-    {children}
-    <Footer />
-  </>
-);
+const UserPageTemplate = ({ children }) => {
+  return (
+    <>
+      <Header />
+      {children}
+      <Footer />
+    </>
+  );
+};
 
 UserPageTemplate.propTypes = {
-  children: PropTypes.oneOfType([PropTypes.object]).isRequired, // solution to PropTypes.object is forbidden
+  children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.object), PropTypes.object]),
+};
+UserPageTemplate.defaultProps = {
+  children: [],
 };
 export default UserPageTemplate;

@@ -14,7 +14,6 @@ const GlobalStyle = createGlobalStyle`
         padding: 0;
         font-family: 'Montserrat',sans-serif;
         font-size: 62.5%;
-        /* overflow-x:hidden; */
     }
     body{
         margin:0;
@@ -22,6 +21,11 @@ const GlobalStyle = createGlobalStyle`
     }
     h1,h2,h3,h4,h5,h6{
         margin: 0;
+    }
+    @media (max-width: 1080px){
+        html{
+            font-size: 8.5px;
+        }
     }
 `;
 

@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import withContext from 'hoc/withContext';
 import DetailsTemplate from 'templates/DetailsTemplate';
 
 class DetailsPage extends Component {
@@ -14,25 +12,25 @@ class DetailsPage extends Component {
         title: '',
         content: '',
         imageUrl: '',
+        videoUrl: '',
       },
+      pageType: this.props.match.path.split('/')[1],
     };
   }
 
   componentDidMount() {
     const { id } = this.props.match.params;
-    const { context } = this.props;
-
-    console.log(context);
+    const { pageType } = this.state;
 
     axios
-      .get(`http://localhost:8081/${context}/${id}`)
+      .get(`http://localhost:8081/${pageType}/${id}`)
       .then(({ data }) => this.setState({ activeItem: data }))
       .catch(err => console.log(err));
   }
 
   render() {
-    const { context } = this.props;
     const { activeItem } = this.state;
+    const { pageType } = this.state;
 
     return (
       <DetailsTemplate
@@ -40,17 +38,15 @@ class DetailsPage extends Component {
         title={activeItem.title}
         content={activeItem.content}
         image={activeItem.imageUrl}
-        pageType={context}
+        video={activeItem.videoUrl}
+        pageType={pageType}
       />
     );
   }
 }
 
-const mapStateToProps = ({ post }) => ({ post });
-
 DetailsPage.propTypes = {
   match: PropTypes.string.isRequired,
-  context: PropTypes.string.isRequired,
 };
 
-export default withContext(connect(mapStateToProps)(DetailsPage));
+export default DetailsPage;

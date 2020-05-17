@@ -1,11 +1,12 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { fetchItems as fetchAllItemsOfType } from 'actions';
+import ServerError from 'providers/ServerError';
+import PopUp from 'components/molecules/PopUp/PopUp';
 import PropTypes from 'prop-types';
 import LoadingIcon from 'components/atoms/LoadingIcon/LoadingIcon';
 import Post from 'components/molecules/Post/Post';
-import Controls from 'providers/Controls';
 import ControlsList from 'components/molecules/ControlsList/ControlsList';
 import GridTemplate from '../../../templates/GridTemplate';
 
@@ -19,35 +20,42 @@ const ItemsList = ({ itemsArray, itemType, fetchItems, searchFilter }) => {
   });
 
   return (
-    <GridTemplate>
-      {itemsArray.length ? (
-        itemsArray
-          .filter(item => item.title.toLowerCase().includes(searchFilter.toLowerCase()))
-          .map(({ _id: id, title, content, imageUrl, videoUrl }) => (
-            <PostWrapper>
-              <Post
-                id={id}
-                title={title}
-                content={content}
-                imageUrl={imageUrl}
-                videoUrl={videoUrl}
-                key={id}
-                pageType={itemType}
-              />
-              <ControlsList
-                itemId={id}
-                itemType={itemType}
-                itemTitle={title}
-                itemContent={content}
-                itemImageUrl={imageUrl}
-                itemVideoUrl={videoUrl}
-              />
-            </PostWrapper>
-          ))
-      ) : (
-        <LoadingIcon />
-      )}
-    </GridTemplate>
+    <>
+      <ServerError
+        render={({ isError, toggleError }) => (
+          <>{isError && <PopUp onConfirmationAction={toggleError} />}</>
+        )}
+      />
+      <GridTemplate>
+        {itemsArray.length ? (
+          itemsArray
+            .filter(item => item.title.toLowerCase().includes(searchFilter.toLowerCase()))
+            .map(({ _id: id, title, content, imageUrl, videoUrl }) => (
+              <PostWrapper>
+                <Post
+                  id={id}
+                  title={title}
+                  content={content}
+                  imageUrl={imageUrl}
+                  videoUrl={videoUrl}
+                  key={id}
+                  pageType={itemType}
+                />
+                <ControlsList
+                  itemId={id}
+                  itemType={itemType}
+                  itemTitle={title}
+                  itemContent={content}
+                  itemImageUrl={imageUrl}
+                  itemVideoUrl={videoUrl}
+                />
+              </PostWrapper>
+            ))
+        ) : (
+          <LoadingIcon />
+        )}
+      </GridTemplate>
+    </>
   );
 };
 

@@ -14,6 +14,12 @@ const StyledParagraphWrapper = styled.div`
 const StyledParagraph = styled.div`
   font-size: 3.5rem;
   font-weight: bold;
+  @media (max-width: 1250px) {
+    font-size: 3rem;
+  }
+  @media (max-width: 980px) {
+    font-size: 2.5rem;
+  }
 `;
 const StyledGridTemplate = styled(GridTemplate)`
   box-sizing: content-box;

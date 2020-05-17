@@ -54,7 +54,7 @@ const ControlsList = ({
     return () => {
       document.removeEventListener('mousedown', outsideClickListener);
     };
-  });
+  }, []);
 
   const handleDeleteAction = () => {
     deleteItem(itemType, itemId);
