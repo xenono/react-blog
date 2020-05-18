@@ -11,7 +11,15 @@ const StyledList = styled.ul`
   display: flex;
   justify-content: space-evenly;
   @media (max-width: 780px) {
-    display: none;
+    position: absolute;
+    flex-direction: column;
+    max-width: 120px;
+    right: 30px;
+    bottom: -70px;
+    background-color: white;
+    text-align: center;
+    padding: 0;
+    border: 2px solid ${({ theme }) => theme.primary};
   }
 `;
 

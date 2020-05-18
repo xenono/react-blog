@@ -3,26 +3,47 @@ import styled from 'styled-components';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Button from 'components/atoms/Button/Button';
-import GearIcon from 'assets/symbol.png';
 import Modal from 'components/molecules/Modal/Modal';
 import VerticalList from 'components/molecules/VerticalList/VerticalList';
 import { deleteItem as deletOneItem } from 'actions';
 import UpdateItemModal from 'components/organisms/UpdateItemModal/UpdateItemModal';
+import { NavLink } from 'react-router-dom';
+import Link from 'components/atoms/Link/Link';
 
-const StyledGearButton = styled(Button)`
+const StyledIcon = styled(Button)`
   width: 50px;
   height: 50px;
-  background-image: url(${GearIcon});
+  background-image: url(${({ iconLink }) => iconLink});
   background-position: center;
   background-size: 40px;
   background-repeat: no-repeat;
   border-radius: 0;
   margin: 0 0 0 auto;
+  position: absolute;
+  top: 0;
+  right: 0;
 `;
 const StyledControlsList = styled.div`
   position: absolute;
   top: 0;
   right: 0;
+`;
+
+const StyledListItem = styled.li`
+  opacity: 0;
+  height: 42px;
+  border-bottom: 2px solid #cfcaca75;
+  padding: 10px 0;
+  width: 100%;
+
+  &:hover,
+  &:focus {
+    background-color: #d3d3d3;
+    cursor: pointer;
+  }
+  &:last-child {
+    border-bottom: none;
+  }
 `;
 
 const ControlsWrapper = styled.div``;
@@ -35,6 +56,8 @@ const ControlsList = ({
   itemImageUrl,
   itemVideoUrl,
   deleteItem,
+  icon,
+  navigation,
 }) => {
   const [areControlsVisible, setControlsVisibility] = useState(false);
   const [isConfirmationModalVisible, setConfirmationModalVisibility] = useState(false);
@@ -60,7 +83,29 @@ const ControlsList = ({
     deleteItem(itemType, itemId);
     setConfirmationModalVisibility(!isConfirmationModalVisible);
   };
-  return (
+  return navigation ? (
+    <StyledControlsList>
+      <ControlsWrapper ref={controlsWrapper}>
+        <StyledIcon iconLink={icon} onClick={() => setControlsVisibility(!areControlsVisible)} />
+        {areControlsVisible && (
+          <VerticalList navigation>
+            <Link exact as={NavLink} activeclass="active" to="/">
+              home
+            </Link>
+            <Link as={NavLink} activeclass="active" to="/posts">
+              blog
+            </Link>
+            <Link as={NavLink} activeclass="active" to="/tutorials">
+              tutorials
+            </Link>
+            <Link as={NavLink} activeclass="active" to="/login">
+              log in
+            </Link>
+          </VerticalList>
+        )}
+      </ControlsWrapper>
+    </StyledControlsList>
+  ) : (
     <StyledControlsList>
       {isConfirmationModalVisible && (
         <Modal
@@ -80,12 +125,18 @@ const ControlsList = ({
         />
       )}
       <ControlsWrapper ref={controlsWrapper}>
-        <StyledGearButton onClick={() => setControlsVisibility(!areControlsVisible)} />
+        <StyledIcon iconLink={icon} onClick={() => setControlsVisibility(!areControlsVisible)} />
         {areControlsVisible && (
-          <VerticalList
-            onDeleteAction={() => setConfirmationModalVisibility(!isConfirmationModalVisible)}
-            onUpdateAction={() => setUpdateModalVisibility(!isUpdateModalVisible)}
-          />
+          <VerticalList>
+            <StyledListItem
+              onClick={() => setConfirmationModalVisibility(!isConfirmationModalVisible)}
+            >
+              Delete
+            </StyledListItem>
+            <StyledListItem onClick={() => setUpdateModalVisibility(!isUpdateModalVisible)}>
+              Update
+            </StyledListItem>
+          </VerticalList>
         )}
       </ControlsWrapper>
     </StyledControlsList>
@@ -97,9 +148,15 @@ const mapDispatchToProps = dispatch => ({
 });
 
 ControlsList.propTypes = {
-  itemId: PropTypes.string.isRequired,
-  itemType: PropTypes.string.isRequired,
-  deleteItem: PropTypes.func.isRequired,
+  itemId: PropTypes.string,
+  itemType: PropTypes.string,
+  deleteItem: PropTypes.func,
+  icon: PropTypes.string.isRequired,
+};
+ControlsList.defaultProps = {
+  itemId: null,
+  itemType: null,
+  deleteItem: null,
 };
 
 export default connect(null, mapDispatchToProps)(ControlsList);

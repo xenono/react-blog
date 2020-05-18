@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import Navigation from 'components/molecules/Navigation/Navigation';
 import useDetectMobile from 'hooks/useDetectMobile';
+import ControlsList from 'components/molecules/ControlsList/ControlsList';
+import Burger from 'assets/burger.svg';
 
 const StyledWrapper = styled.div`
   height: 10vh;
@@ -10,7 +12,10 @@ const StyledWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: flex-end;
+  position: relative;
   background: ${({ transparent, theme }) => (transparent ? 'transparent' : theme.primary)};
+  @media (max-width: 780px) {
+  }
 `;
 
 const StyledBurgerNav = styled.div`
@@ -40,13 +45,14 @@ const StyledBurgerNav = styled.div`
 const Header = ({ transparent, administratorNav }) => {
   const [isMobile, setMobileNavigation] = useState(false);
 
-  console.log(isMobile);
-
   useDetectMobile(setMobileNavigation);
   return (
     <StyledWrapper transparent={transparent}>
-      {isMobile && <StyledBurgerNav />}
-      <Navigation administratorNav={administratorNav} />
+      {isMobile ? (
+        <ControlsList icon={Burger} navigation="true" />
+      ) : (
+        <Navigation administratorNav={administratorNav} />
+      )}
     </StyledWrapper>
   );
 };

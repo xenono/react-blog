@@ -5,10 +5,10 @@ import Header from 'components/organisms/Header/Header';
 import { connect } from 'react-redux';
 
 const AdministratorPageTemplate = ({ children, isLogged }) => {
-  if (!isLogged) {
-    alert('Access Denied');
-    return <Redirect to="/" />;
-  }
+  // if (!isLogged) {
+  //   alert('Access Denied');
+  //   return <Redirect to="/" />;
+  // }
   return (
     <>
       <Header primary administratorNav="true" />

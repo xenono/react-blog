@@ -25,12 +25,12 @@ const ItemsList = ({ itemsArray, itemType, fetchItems }) => {
         {itemsArray.length ? (
           itemsArray.map(({ _id: id, title, content, imageUrl, videoUrl }) => (
             <Post
+              key={id}
               id={id}
               title={title}
               content={content}
               imageUrl={imageUrl}
               videoUrl={videoUrl}
-              key={id}
               pageType={itemType}
             />
           ))

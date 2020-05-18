@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { fetchItems as fetchAllItemsOfType } from 'actions';
+import GearIcon from 'assets/symbol.png';
 import ServerError from 'providers/ServerError';
 import PopUp from 'components/molecules/PopUp/PopUp';
 import PropTypes from 'prop-types';
@@ -42,13 +43,17 @@ const ItemsList = ({ itemsArray, itemType, fetchItems, searchFilter }) => {
                   pageType={itemType}
                 />
                 <ControlsList
+                  key={id + title}
                   itemId={id}
                   itemType={itemType}
                   itemTitle={title}
                   itemContent={content}
                   itemImageUrl={imageUrl}
                   itemVideoUrl={videoUrl}
-                />
+                  icon={GearIcon}
+                >
+                  {' '}
+                </ControlsList>
               </PostWrapper>
             ))
         ) : (

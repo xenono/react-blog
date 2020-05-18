@@ -30,7 +30,7 @@ const Card = ({ image, title, content }) => (
   <StyledWrapper>
     <StyledFlexWrapper row>
       <StyledColumn>
-        <Image src={image} circle="true" />
+        <Image src={image} circle />
       </StyledColumn>
       <StyledColumn>
         <StyledFlexWrapper>

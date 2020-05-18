@@ -40,7 +40,7 @@ const Post = ({ id, title, content, imageUrl, pageType }) => {
   }
   return (
     <StyledWrapper>
-      <Image src={imageUrl} postMiniature="true" />
+      <Image src={imageUrl} postminiature />
       <StyledContent>
         <StyledHeading black>{title}</StyledHeading>
         <StyledParagraph black>{description}</StyledParagraph>
