@@ -8,6 +8,7 @@ const Link = styled.a`
   padding: 10px;
   text-decoration: none;
   font-weight: 600;
+  z-index: 999;
   &.active {
     text-decoration: underline;
     color: #bdbdbd;

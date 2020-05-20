@@ -17,6 +17,9 @@ const StyledWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  @media (max-width: 630px) {
+    width: 90%;
+  }
 `;
 
 const StyledHeading = styled(Heading)`

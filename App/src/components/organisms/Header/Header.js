@@ -18,30 +18,6 @@ const StyledWrapper = styled.div`
   }
 `;
 
-const StyledBurgerNav = styled.div`
-  width: 30px;
-  height: 2px;
-  background-color: white;
-  margin-right: 30px;
-  position: relative;
-
-  &::after,
-  &::before {
-    display: block;
-    position: absolute;
-    content: '';
-    width: 30px;
-    height: 2px;
-    background-color: white;
-  }
-  &::after {
-    top: -10px;
-  }
-  &::before {
-    bottom: -10px;
-  }
-`;
-
 const Header = ({ transparent, administratorNav }) => {
   const [isMobile, setMobileNavigation] = useState(false);
 
@@ -49,7 +25,7 @@ const Header = ({ transparent, administratorNav }) => {
   return (
     <StyledWrapper transparent={transparent}>
       {isMobile ? (
-        <ControlsList icon={Burger} navigation="true" />
+        <ControlsList icon={Burger} navigation administratorNav={administratorNav} />
       ) : (
         <Navigation administratorNav={administratorNav} />
       )}

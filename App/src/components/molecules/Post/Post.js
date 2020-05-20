@@ -9,6 +9,8 @@ import Button from 'components/atoms/Button/Button';
 
 const StyledWrapper = styled.div`
   border: 4px solid ${({ theme }) => theme.primary};
+  display: flex;
+  flex-direction: column;
 `;
 const StyledHeading = styled(Heading)`
   font-size: 3rem;
@@ -25,6 +27,11 @@ const StyledButton = styled(Button)`
 `;
 const StyledContent = styled.div`
   padding: 1rem;
+  margin: auto 0;
+  height: auto;
+`;
+const StyledImage = styled(Image)`
+  height: 33.333%;
 `;
 
 const Post = ({ id, title, content, imageUrl, pageType }) => {
@@ -40,7 +47,7 @@ const Post = ({ id, title, content, imageUrl, pageType }) => {
   }
   return (
     <StyledWrapper>
-      <Image src={imageUrl} postminiature />
+      <StyledImage src={imageUrl} postminiature />
       <StyledContent>
         <StyledHeading black>{title}</StyledHeading>
         <StyledParagraph black>{description}</StyledParagraph>

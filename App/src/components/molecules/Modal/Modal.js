@@ -13,7 +13,7 @@ const StyledWrapper = styled.div`
   background-color: rgba(0, 0, 0, 0.3);
 `;
 
-const StyleModal = styled.div`
+const StyledModal = styled.div`
   width: 50%;
   height: 300px;
   background-color: white;
@@ -21,7 +21,15 @@ const StyleModal = styled.div`
   position: absolute;
   top: 50%;
   left: 50%;
+  padding: 20px;
   transform: translate(-50%, -50%);
+  @media (max-width: 1000px) {
+    width: 75%;
+  }
+  @media (max-width: 670px) {
+    width: 90%;
+    height: 200px;
+  }
 `;
 
 const StyledContentWrapper = styled.div`
@@ -42,17 +50,20 @@ const StyledButtonsWrapper = styled.div`
 const StyledHeading = styled(Heading)`
   font-size: 4.5rem;
   margin-top: 0;
+  @media (max-width: 500px) {
+    font-size: 3rem;
+  }
 `;
 
 const StyledButton = styled(Button)`
   font-size: 2rem;
   padding: 10px;
-  width: 200px;
+  width: 45%;
 `;
 
 const Modal = ({ onDeclineButton, onAcceptButton }) => (
   <StyledWrapper>
-    <StyleModal>
+    <StyledModal>
       <StyledContentWrapper>
         <StyledHeading>Do you want to delete this item?</StyledHeading>
         <StyledButtonsWrapper>
@@ -60,7 +71,7 @@ const Modal = ({ onDeclineButton, onAcceptButton }) => (
           <StyledButton onClick={onAcceptButton}>Yes</StyledButton>
         </StyledButtonsWrapper>
       </StyledContentWrapper>
-    </StyleModal>
+    </StyledModal>
   </StyledWrapper>
 );
 

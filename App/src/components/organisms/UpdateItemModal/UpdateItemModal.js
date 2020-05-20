@@ -22,22 +22,6 @@ const StyledWrapper = styled.div`
   align-items: center;
 `;
 
-const StyledFormWrapper = styled.div`
-  position: relative;
-  max-width: 600px;
-  width: 100%;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-`;
-
-const StyledHeading = styled(Heading)`
-  font-size: 5rem;
-  margin-bottom: 1em;
-`;
-
 const StyledModalContainer = styled.div`
   width: 100%;
   height: 90%;
@@ -45,13 +29,46 @@ const StyledModalContainer = styled.div`
   display: flex;
   align-items: center;
   position: relative;
+  @media (max-width: 780px) {
+    height: 100vh;
+    flex-direction: column;
+  }
 `;
+
+const StyledFormWrapper = styled.div`
+  position: relative;
+  max-width: 600px;
+  width: 95%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  @media (max-width: 480px) {
+    margin: 40px auto;
+  }
+`;
+
+const StyledHeading = styled(Heading)`
+  font-size: 5rem;
+  margin-bottom: 1em;
+`;
+
 const StyledFormContainer = styled.div`
   width: 50%;
+  @media (max-width: 780px) {
+    width: 95%;
+  }
 `;
 const StyledPostContainer = styled.div`
   width: 50%;
   padding: 5%;
+  @media (max-width: 780px) {
+    width: 75%;
+  }
+  @media (max-width: 500px) {
+    width: 90%;
+  }
 `;
 
 const StyledTextArea = styled(Input)`
@@ -63,6 +80,10 @@ const StyledTextArea = styled(Input)`
   text-align: left;
   border: 2px solid ${({ theme }) => theme.primary};
   margin-bottom: 4em;
+
+  @media (max-width: 780px) {
+    margin-bottom: 1em;
+  }
 `;
 
 const StyledFieldContainer = styled.div`
@@ -98,6 +119,11 @@ const ExitButton = styled(Button)`
   position: absolute;
   right: 5%;
   top: 7.5%;
+  @media (max-width: 780px) {
+    top: 1%;
+    right: 1%;
+    max-width: 60px;
+  }
 `;
 
 const UpdateItemModal = ({

@@ -9,6 +9,10 @@ import { deleteItem as deletOneItem } from 'actions';
 import UpdateItemModal from 'components/organisms/UpdateItemModal/UpdateItemModal';
 import { NavLink } from 'react-router-dom';
 import Link from 'components/atoms/Link/Link';
+import {
+  UserNavigation,
+  AdministratorNavigation,
+} from 'components/molecules/Navigation/Navigation';
 
 const StyledIcon = styled(Button)`
   width: 50px;
@@ -58,6 +62,7 @@ const ControlsList = ({
   deleteItem,
   icon,
   navigation,
+  administratorNav,
 }) => {
   const [areControlsVisible, setControlsVisibility] = useState(false);
   const [isConfirmationModalVisible, setConfirmationModalVisibility] = useState(false);
@@ -89,18 +94,7 @@ const ControlsList = ({
         <StyledIcon iconLink={icon} onClick={() => setControlsVisibility(!areControlsVisible)} />
         {areControlsVisible && (
           <VerticalList navigation>
-            <Link exact as={NavLink} activeclass="active" to="/">
-              home
-            </Link>
-            <Link as={NavLink} activeclass="active" to="/posts">
-              blog
-            </Link>
-            <Link as={NavLink} activeclass="active" to="/tutorials">
-              tutorials
-            </Link>
-            <Link as={NavLink} activeclass="active" to="/login">
-              log in
-            </Link>
+            {administratorNav ? <AdministratorNavigation /> : <UserNavigation />}
           </VerticalList>
         )}
       </ControlsWrapper>

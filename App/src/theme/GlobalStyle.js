@@ -24,7 +24,17 @@ const GlobalStyle = createGlobalStyle`
     }
     @media (max-width: 1080px){
         html{
-            font-size: 8.5px;
+            font-size: 9.5px;
+        }
+    }
+    @media (max-width: 780px){
+        html{
+            font-size: 7.5px;
+        }
+    }
+    @media (max-width: 480px){
+        html{
+            font-size: 6.5px;
         }
     }
 `;

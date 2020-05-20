@@ -9,7 +9,7 @@ const StyledImage = styled.img`
   max-width: 100%;
   border: 4px solid ${({ theme }) => theme.primary};
 
-  ${({ circle, postminiature, postDetails }) =>
+  ${({ circle, postminiature, postdetails }) =>
     (circle &&
       css`
         border-radius: 50%;
@@ -18,23 +18,26 @@ const StyledImage = styled.img`
     (postminiature &&
       css`
         width: 100%;
-        height: 400px;
         border: none;
         border-bottom: 4px solid ${({ theme }) => theme.primary};
       `) ||
-    (postDetails &&
+    (postdetails &&
       css`
         max-width: 50%;
+
+        @media (max-width: 780px) {
+          max-width: 100%;
+        }
       `)}
 `;
 
-const Image = ({ circle, src, postminiature, postDetails }) => {
+const Image = ({ circle, src, postminiature, postdetails }) => {
   return (
     <StyledImage
       as={Img}
       circle={circle}
       postminiature={postminiature}
-      details={postDetails}
+      postdetails={postdetails}
       src={src}
       loader={<LoadingIcon />}
     />

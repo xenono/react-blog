@@ -31,7 +31,7 @@ const StyledWrapper = styled.div`
     padding: 7.5% 7.5%;
   }
   @media (max-width: 400px) {
-    padding: 3% 1%;
+    padding: 8% 1% 20% 1%;
   }
 `;
 const GridTemplate = ({ children }) => {

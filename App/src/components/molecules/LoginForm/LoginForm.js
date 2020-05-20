@@ -15,6 +15,9 @@ const StyledWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  @media (max-width: 700px) {
+    min-width: 80%;
+  }
 `;
 
 const StyledFieldContainer = styled.div`

@@ -17,12 +17,16 @@ const StyledBodyContainer = styled.div`
   height: 100%;
 `;
 const StyledHeader = styled.div`
-  width: 30%;
+  width: 100%;
   height: 10%;
   margin: 50px auto;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  justify-content: space-evenly;
+  align-items: space-evenly;
+  @media (max-width: 780px) {
+    justify-content: space-evenly;
+    align-items: space-evenly;
+  }
 `;
 const StyledContainer = styled.div`
   width: 100%;
@@ -131,7 +135,6 @@ class Administrator extends Component {
                   <StyledLabel htmlFor="search">
                     Find {currentItemType.slice(0, currentItemType.length - 1)}
                   </StyledLabel>
-                  {/* <SearchIcon /> */}
                   <StyledSearchInput
                     id="search"
                     name="search"

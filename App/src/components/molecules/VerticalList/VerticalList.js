@@ -3,25 +3,19 @@ import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 import gsap from 'gsap';
 
-const List = styled.ul`
+const List = styled.div`
+  position: relative;
   min-width: 150px;
   height: 0;
-  z-index: 999;
+  z-index: 1;
   font-size: 1.6rem;
   text-align: center;
   margin: 0;
   margin-top: 50px;
   padding: 0;
   background-color: white;
-  list-style: none;
   border: 2px solid ${({ theme }) => theme.primary};
   transform-origin: top;
-
-  ${({ navigation }) =>
-    navigation &&
-    css`
-      flex-direction: column;
-    `}
 `;
 
 const VerticalList = ({ children, navigation }) => {
@@ -34,7 +28,7 @@ const VerticalList = ({ children, navigation }) => {
       { opacity: 1, stagger: 0.19, delay: 0.1 },
       '-=0.6',
     );
-  }, []);
+  });
 
   return <List ref={list}>{children}</List>;
 };

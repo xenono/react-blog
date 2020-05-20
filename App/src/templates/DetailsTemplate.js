@@ -17,15 +17,34 @@ const StyledWrapper = styled.div`
 const StyledIntro = styled.div`
   display: flex;
   justify-content: space-between;
+  @media (max-width: 780px) {
+    flex-direction: column;
+  }
 `;
 const StyledHeading = styled(Heading)`
   margin: auto 0;
-  max-width: 50%;
+  max-width: 40%;
   display: inline;
+  font-size: 5rem;
+
+  @media (max-width: 780px) {
+    max-width: 100%;
+    margin-top: 20px;
+  }
 `;
 const StyledButton = styled(Button)`
   width: auto;
   text-align: center;
+`;
+
+const StyledReactPlayer = styled(ReactPlayer)`
+  max-width: 100%;
+  @media (max-width: 480px) {
+    max-height: 250px;
+  }
+  @media (max-width: 360px) {
+    max-height: 150px;
+  }
 `;
 
 const DetailsTemplate = ({ title, content, image, pageType, video }) => (
@@ -34,10 +53,10 @@ const DetailsTemplate = ({ title, content, image, pageType, video }) => (
       <StyledIntro>
         {video ? (
           <>
-            <ReactPlayer url={video} />
+            <StyledReactPlayer url={video} />
           </>
         ) : (
-          <Image src={image} postDetails />
+          <Image src={image} postdetails />
         )}
         <StyledHeading black>{title}</StyledHeading>
       </StyledIntro>

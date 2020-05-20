@@ -22,6 +22,10 @@ const StyledPopUp = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  @media (max-width: 800px) {
+    width: 80%;
+    height: 200px;
+  }
 `;
 
 const StyledContentWrapper = styled.div`
@@ -43,6 +47,9 @@ const StyledHeading = styled(Heading)`
   width: 85%;
   font-size: 4rem;
   margin-top: 0;
+  @media (max-width: 800px) {
+    font-size: 3rem;
+  }
 `;
 
 const StyledButton = styled(Button)`

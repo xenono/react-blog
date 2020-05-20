@@ -51,9 +51,7 @@ const ItemsList = ({ itemsArray, itemType, fetchItems, searchFilter }) => {
                   itemImageUrl={imageUrl}
                   itemVideoUrl={videoUrl}
                   icon={GearIcon}
-                >
-                  {' '}
-                </ControlsList>
+                />
               </PostWrapper>
             ))
         ) : (

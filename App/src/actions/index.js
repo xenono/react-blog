@@ -43,8 +43,8 @@ export const fetchItems = itemType => dispatch => {
 
 export const fetchAllItems = () => dispatch => {
   dispatch({ type: FETCH_REQUEST });
-  const postsRequest = axios.get('http://127.0.0.1:8081/posts');
-  const tutorialsRequest = axios.get('http://127.0.0.1:8081/tutorials');
+  const postsRequest = axios.get('http://localhost:8081//posts');
+  const tutorialsRequest = axios.get('http://localhost:8081/tutorials');
 
   return axios
     .all([postsRequest, tutorialsRequest])
@@ -71,7 +71,7 @@ export const authenticateUser = (username, password) => dispatch => {
   dispatch({ type: AUTH_REQUEST });
 
   return axios
-    .post('http://127.0.0.1:8081/getUser', {
+    .post('http://localhost:8081/getUser', {
       username,
       password,
     })
@@ -88,7 +88,7 @@ export const addItem = (itemType, payload) => dispatch => {
   dispatch({ type: ADD_ITEM_REQUEST });
 
   return axios
-    .post(`http://127.0.0.1:8081/${itemType}/add`, payload)
+    .post(`http://localhost:8081/${itemType}/add`, payload)
     .then(({ data }) =>
       dispatch({
         type: ADD_ITEM_SUCCESS,
@@ -108,7 +108,7 @@ export const deleteItem = (itemType, itemId) => dispatch => {
   dispatch({ type: DELETE_ITEM_REQUEST });
 
   return axios
-    .delete(`http://127.0.0.1:8081/delete/${itemType}/${itemId}`)
+    .delete(`http://localhost:8081/delete/${itemType}/${itemId}`)
     .then(({ data }) =>
       dispatch({
         type: DELETE_ITEM_SUCCESS,
@@ -127,7 +127,7 @@ export const updateItem = (itemType, item) => dispatch => {
   dispatch({ type: UPDATE_ITEM_REQUEST });
 
   return axios
-    .put(`http://127.0.0.1:8081/${itemType}/update/${item.id}`, item)
+    .put(`http://localhost:8081/${itemType}/update/${item.id}`, item)
     .then(({ data }) => {
       dispatch({
         type: UPDATE_ITEM_SUCCESS,

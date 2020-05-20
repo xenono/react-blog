@@ -10,7 +10,7 @@ const useDetectMobile = handler => {
   useEffect(() => {
     detectResize();
     window.addEventListener('resize', detectResize);
-  }, []);
+  });
 };
 
 export default useDetectMobile;

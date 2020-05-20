@@ -10,6 +10,9 @@ const Input = styled.input`
   border-bottom: 1px solid ${({ theme }) => theme.primary};
   outline: none;
   margin-bottom: 4em;
+  @media (max-width: 1000px) {
+    margin-bottom: 2em;
+  }
 `;
 
 export default Input;

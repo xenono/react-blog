@@ -11,7 +11,6 @@ const StyledRadioButton = styled.div`
   height: 30px;
   border: 2px solid ${({ theme }) => theme.primary};
   border-radius: 100%;
-  z-index: -1;
   &:after {
     content: '';
     position: absolute;
@@ -63,13 +62,12 @@ const StyledLabel = styled.label`
   display: flex;
   align-items: center;
 `;
+
 const Radio = ({ changeFn, checked, children }) => (
-  <>
-    <StyledLabel>
-      <StyledInput type="radio" checked={checked} onChange={changeFn} />
-      {checked ? <StyledRadioButton checked /> : <StyledRadioButton />}
-      <StyledTextContainer>{children}</StyledTextContainer>
-    </StyledLabel>
-  </>
+  <StyledLabel>
+    <StyledInput type="radio" checked={checked} onChange={changeFn} />
+    {checked ? <StyledRadioButton checked /> : <StyledRadioButton />}
+    <StyledTextContainer>{children}</StyledTextContainer>
+  </StyledLabel>
 );
 export default Radio;
