@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from 'react';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import gsap from 'gsap';
 
@@ -18,12 +18,13 @@ const List = styled.div`
   transform-origin: top;
 `;
 
-const VerticalList = ({ children, navigation }) => {
+const VerticalList = ({ children }) => {
   const list = useRef(null);
   const tl = gsap.timeline();
+  const calculatedHeight = React.Children.count(children) * 42;
 
   useEffect(() => {
-    tl.to(list.current, { height: navigation ? '170px' : '82px', duration: 0.65 }).to(
+    tl.to(list.current, { height: calculatedHeight, duration: 0.65 }).to(
       [...list.current.children],
       { opacity: 1, stagger: 0.19, delay: 0.1 },
       '-=0.6',

@@ -36,8 +36,7 @@ export const fetchItems = itemType => dispatch => {
       });
     })
     .catch(err => {
-      console.log(err);
-      dispatch({ type: FETCH_FAILURE });
+      dispatch({ type: FETCH_FAILURE, errors: err });
     });
 };
 
@@ -62,7 +61,6 @@ export const fetchAllItems = () => dispatch => {
       }),
     )
     .catch(err => {
-      console.log(err);
       dispatch({ type: FETCH_FAILURE, errors: err });
     });
 };
@@ -79,7 +77,6 @@ export const authenticateUser = (username, password) => dispatch => {
       dispatch({ type: AUTH_SUCCESS, payload });
     })
     .catch(err => {
-      console.log(err);
       dispatch({ type: AUTH_FAILURE, errors: err });
     });
 };
@@ -99,7 +96,6 @@ export const addItem = (itemType, payload) => dispatch => {
       }),
     )
     .catch(err => {
-      console.log(err);
       dispatch({ type: ADD_ITEM_FAILURE, errors: err });
     });
 };
@@ -119,7 +115,6 @@ export const deleteItem = (itemType, itemId) => dispatch => {
       }),
     )
     .catch(err => {
-      console.log(err);
       dispatch({ type: DELETE_ITEM_FAILURE, errors: err });
     });
 };
@@ -138,7 +133,6 @@ export const updateItem = (itemType, item) => dispatch => {
       });
     })
     .catch(err => {
-      console.log(err);
       dispatch({
         type: UPDATE_ITEM_FAILURE,
         errors: err,

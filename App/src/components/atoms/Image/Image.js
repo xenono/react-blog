@@ -31,28 +31,30 @@ const StyledImage = styled.img`
       `)}
 `;
 
-const Image = ({ circle, src, postminiature, postdetails }) => {
-  return (
-    <StyledImage
-      as={Img}
-      circle={circle}
-      postminiature={postminiature}
-      postdetails={postdetails}
-      src={src}
-      loader={<LoadingIcon />}
-    />
-  );
-};
+const Image = ({ circle, src, postminiature, postdetails, alt }) => (
+  <StyledImage
+    as={Img}
+    circle={circle}
+    postminiature={postminiature}
+    postdetails={postdetails}
+    src={src}
+    loader={<LoadingIcon />}
+    alt={alt}
+  />
+);
 
 Image.propTypes = {
-  postminiature: PropTypes.bool.isRequired,
+  postminiature: PropTypes.bool,
   circle: PropTypes.bool,
-  postDetails: PropTypes.bool,
+  postdetails: PropTypes.bool,
   src: PropTypes.string.isRequired,
+  alt: PropTypes.string,
 };
 Image.defaultProps = {
-  postDetails: false,
+  postminiature: false,
+  postdetails: false,
   circle: false,
+  alt: '',
 };
 
 export default Image;

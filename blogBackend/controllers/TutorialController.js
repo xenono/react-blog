@@ -1,15 +1,6 @@
 const mongoose = require("mongoose");
 require("../models/Tutorial");
 
-try {
-    mongoose.connect(
-        "mongodb+srv://user:userpass@main-qk5ta.mongodb.net/blog?retryWrites=true&w=majority",
-        { useNewUrlParser: true, useUnifiedTopology: true }
-    );
-} catch {
-    console.log("Connection Error");
-}
-
 const Tutorial = mongoose.model("tutorial");
 
 const getAllTutorials = (req, res) => {

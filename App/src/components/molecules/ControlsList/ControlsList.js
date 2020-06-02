@@ -7,8 +7,6 @@ import Modal from 'components/molecules/Modal/Modal';
 import VerticalList from 'components/molecules/VerticalList/VerticalList';
 import { deleteItem as deletOneItem } from 'actions';
 import UpdateItemModal from 'components/organisms/UpdateItemModal/UpdateItemModal';
-import { NavLink } from 'react-router-dom';
-import Link from 'components/atoms/Link/Link';
 import {
   UserNavigation,
   AdministratorNavigation,
@@ -33,7 +31,7 @@ const StyledControlsList = styled.div`
   right: 0;
 `;
 
-const StyledListItem = styled.li`
+const StyledListItem = styled.div`
   opacity: 0;
   height: 42px;
   border-bottom: 2px solid #cfcaca75;
@@ -94,7 +92,7 @@ const ControlsList = ({
         <StyledIcon iconLink={icon} onClick={() => setControlsVisibility(!areControlsVisible)} />
         {areControlsVisible && (
           <VerticalList navigation>
-            {administratorNav ? <AdministratorNavigation /> : <UserNavigation />}
+            {administratorNav ? <AdministratorNavigation /> : UserNavigation.map(child => child)}
           </VerticalList>
         )}
       </ControlsWrapper>
@@ -146,11 +144,24 @@ ControlsList.propTypes = {
   itemType: PropTypes.string,
   deleteItem: PropTypes.func,
   icon: PropTypes.string.isRequired,
+
+  itemTitle: PropTypes.string,
+  itemContent: PropTypes.string,
+  itemImageUrl: PropTypes.string,
+  itemVideoUrl: PropTypes.string,
+  navigation: PropTypes.bool,
+  administratorNav: PropTypes.bool,
 };
 ControlsList.defaultProps = {
   itemId: null,
   itemType: null,
   deleteItem: null,
+  itemTitle: '',
+  itemContent: '',
+  itemImageUrl: '',
+  itemVideoUrl: '',
+  navigation: false,
+  administratorNav: false,
 };
 
 export default connect(null, mapDispatchToProps)(ControlsList);

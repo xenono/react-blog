@@ -5,7 +5,6 @@ import { theme } from '../src/theme/mainTheme';
 import { addParameters } from '@storybook/react';
 import { themes } from '@storybook/theming';
 import { Provider } from 'react-redux';
-import store from '../src/store';
 
 function loadStories() {
   const req = require.context('../src/components', true, /\.stories\.js$/);
@@ -16,10 +15,6 @@ addParameters({
     theme: themes.dark,
   },
 });
-addDecorator(story => (
-  <Provider store={store}>
-    <ThemeProvider theme={theme}>{story()}</ThemeProvider>
-  </Provider>
-));
+addDecorator(story => <ThemeProvider theme={theme}>{story()}</ThemeProvider>);
 
 configure(loadStories, module);

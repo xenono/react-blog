@@ -29,7 +29,7 @@ const StyledGridTemplate = styled(GridTemplate)`
 const Blog = () => (
   <UserPageTemplate primary>
     <StyledGridTemplate>
-      <Image src={AuthorImage} />
+      <Image src={AuthorImage} alt="me" />
       <StyledParagraphWrapper>
         <StyledParagraph>
           My lovely life cut in small posts. You will read everything about me, my private

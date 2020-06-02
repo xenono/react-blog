@@ -1,5 +1,6 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
+import PropTypes from 'prop-types';
 
 const StyledRadioButton = styled.div`
   position: absolute;
@@ -70,4 +71,14 @@ const Radio = ({ changeFn, checked, children }) => (
     <StyledTextContainer>{children}</StyledTextContainer>
   </StyledLabel>
 );
+
+Radio.propTypes = {
+  changeFn: PropTypes.func.isRequired,
+  checked: PropTypes.bool,
+  children: PropTypes.string,
+};
+Radio.defaultProps = {
+  checked: false,
+  children: '',
+};
 export default Radio;

@@ -1,37 +1,14 @@
 const mongoose = require("mongoose");
 require("../models/Post");
 
-try {
-    mongoose.connect(
-        "mongodb+srv://user:userpass@main-qk5ta.mongodb.net/blog?retryWrites=true&w=majority",
-        { useNewUrlParser: true, useUnifiedTopology: true }
-    );
-} catch {
-    console.log("Connection Error");
-}
-
 const Post = mongoose.model("post");
 
 const getAllPosts = (req, res) => {
-    // setTimeout(() => {
-    //     Post.find({})
-    //         .then((posts) => res.send(posts))
-    //         .catch((err) => console.log(err));
-    // }, 5000);
-
     Post.find({})
         .then((posts) => res.send(posts))
         .catch((err) => console.log(err));
 };
 const addPost = async (req, res) => {
-    // try {
-    //     const newPost = await new Post(req.body).save((err, post) => {
-    //         res.send(post);
-    //     });
-    // } catch (err) {
-    //     console.log(err);
-    // }
-
     const newPost = new Post(req.body);
 
     newPost.save((err, Post) => {

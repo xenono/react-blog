@@ -38,7 +38,7 @@ const rootReducer = (state = initialState, action) => {
     case AUTH_SUCCESS:
       return {
         ...state,
-        isLogged: true,
+        isLogged: action.payload.data,
       };
     case ADD_ITEM_SUCCESS:
       return {

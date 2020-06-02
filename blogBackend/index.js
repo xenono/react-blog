@@ -24,6 +24,15 @@ app.get("/", (req, res) => {
     res.send("Homepage");
 });
 
+try {
+    mongoose.connect(
+        "mongodb+srv://user:userpass@main-qk5ta.mongodb.net/blog?retryWrites=true&w=majority",
+        { useNewUrlParser: true, useUnifiedTopology: true }
+    );
+} catch {
+    console.log("Connection Error");
+}
+
 app.listen(8080, () => {
     console.log("Server is running on http://localhost:8080");
 });
