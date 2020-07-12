@@ -23,7 +23,7 @@ class DetailsPage extends Component {
     const { pageType } = this.state;
 
     axios
-      .get(`http://localhost:8081/${pageType}/${id}`)
+      .get(`https://xenono-react-blog-backend.herokuapp.com/${pageType}/${id}`)
       .then(({ data }) => this.setState({ activeItem: data }))
       .catch(err => console.log(err));
   }

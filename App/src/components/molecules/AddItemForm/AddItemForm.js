@@ -96,7 +96,7 @@ const AddItemForm = ({ itemType, addItem }) => (
       }}
     >
       {({ values, handleBlur, handleChange }) => (
-        <StyledForm>
+        <StyledForm data-testid="form">
           <StyledFieldContainer>
             <Input as={Field} type="text" name="title" placeholder="Title" />
             <StyledErrorMessage name="title" component="div" />

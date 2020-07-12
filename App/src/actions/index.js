@@ -25,7 +25,7 @@ export const fetchItems = itemType => dispatch => {
   dispatch({ type: FETCH_REQUEST });
 
   return axios
-    .get(`http://localhost:8081/${itemType}`)
+    .get(`https://xenono-react-blog-backend.herokuapp.com/${itemType}`)
     .then(({ data }) => {
       dispatch({
         type: FETCH_SUCCESS,
@@ -42,8 +42,8 @@ export const fetchItems = itemType => dispatch => {
 
 export const fetchAllItems = () => dispatch => {
   dispatch({ type: FETCH_REQUEST });
-  const postsRequest = axios.get('http://localhost:8081//posts');
-  const tutorialsRequest = axios.get('http://localhost:8081/tutorials');
+  const postsRequest = axios.get('https://xenono-react-blog-backend.herokuapp.com/posts');
+  const tutorialsRequest = axios.get('https://xenono-react-blog-backend.herokuapp.com/tutorials');
 
   return axios
     .all([postsRequest, tutorialsRequest])
@@ -69,7 +69,7 @@ export const authenticateUser = (username, password) => dispatch => {
   dispatch({ type: AUTH_REQUEST });
 
   return axios
-    .post('http://localhost:8081/getUser', {
+    .post('https://xenono-react-blog-backend.herokuapp.com/getUser', {
       username,
       password,
     })
@@ -85,7 +85,7 @@ export const addItem = (itemType, payload) => dispatch => {
   dispatch({ type: ADD_ITEM_REQUEST });
 
   return axios
-    .post(`http://localhost:8081/${itemType}/add`, payload)
+    .post(`https://xenono-react-blog-backend.herokuapp.com/${itemType}/add`, payload)
     .then(({ data }) =>
       dispatch({
         type: ADD_ITEM_SUCCESS,
@@ -104,7 +104,7 @@ export const deleteItem = (itemType, itemId) => dispatch => {
   dispatch({ type: DELETE_ITEM_REQUEST });
 
   return axios
-    .delete(`http://localhost:8081/delete/${itemType}/${itemId}`)
+    .delete(`https://xenono-react-blog-backend.herokuapp.com/delete/${itemType}/${itemId}`)
     .then(({ data }) =>
       dispatch({
         type: DELETE_ITEM_SUCCESS,
@@ -122,7 +122,7 @@ export const updateItem = (itemType, item) => dispatch => {
   dispatch({ type: UPDATE_ITEM_REQUEST });
 
   return axios
-    .put(`http://localhost:8081/${itemType}/update/${item.id}`, item)
+    .put(`https://xenono-react-blog-backend.herokuapp.com/${itemType}/update/${item.id}`, item)
     .then(({ data }) => {
       dispatch({
         type: UPDATE_ITEM_SUCCESS,
