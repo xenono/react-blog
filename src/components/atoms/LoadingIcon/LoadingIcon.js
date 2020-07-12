@@ -49,8 +49,8 @@ const SpinningCircle = styled.div`
 `;
 
 const LoadingIcon = ({ formLoading }) => (
-  <StyledWrapper formLoading>
-    <SpinningCircle formLoading />
+  <StyledWrapper formLoading={formLoading}>
+    <SpinningCircle formLoading={formLoading} />
   </StyledWrapper>
 );
 
@@ -58,7 +58,7 @@ LoadingIcon.propTypes = {
   formLoading: PropTypes.bool,
 };
 LoadingIcon.defaultProps = {
-  formLoading: PropTypes.bool,
+  formLoading: false,
 };
 
 export default LoadingIcon;
