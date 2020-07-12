@@ -1,13 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
-import SpinningIcon from 'assets/loadingIcon.png';
 
-const SpinningCircle = styled.img`
+const SpinningCircle = styled.div`
   width: 100px;
   height: 100px;
-  background-color: transparent;
-  border-left: 10px solid transparent;
-  border-radius: 50%;
+  border-left: 6px solid ${({ theme }) => theme.primary};
+  border-top: 6px solid ${({ theme }) => theme.primary};
+  border-radius: 50px;
   animation: spin 2s linear infinite;
 
   @keyframes spin {
@@ -31,7 +30,7 @@ const StyledWrapper = styled.div`
 
 const LoadingIcon = () => (
   <StyledWrapper>
-    <SpinningCircle alt="Loading Icon" src={SpinningIcon} />
+    <SpinningCircle />
   </StyledWrapper>
 );
 
