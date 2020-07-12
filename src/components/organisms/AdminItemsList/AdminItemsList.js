@@ -34,16 +34,16 @@ const ItemsList = ({ itemsArray, itemType, fetchItems, searchFilter }) => {
             .map(({ _id: id, title, content, imageUrl, videoUrl }) => (
               <PostWrapper>
                 <Post
+                  key={id}
                   id={id}
                   title={title}
                   content={content}
                   imageUrl={imageUrl}
                   videoUrl={videoUrl}
-                  key={id}
                   pageType={itemType}
                 />
                 <ControlsList
-                  key={id + title}
+                  key={`${id} ${title}`}
                   itemId={id}
                   itemType={itemType}
                   itemTitle={title}

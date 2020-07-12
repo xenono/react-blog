@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import Heading from 'components/atoms/Heading/Heading';
 import Button from 'components/atoms/Button/Button';
 import Input from 'components/atoms/Input/Input';
+import LoadingIcom from 'components/atoms/LoadingIcon/LoadingIcon';
 import { authenticateUser } from 'actions';
 
 const StyledWrapper = styled.div`
@@ -67,59 +68,61 @@ const StyledFormErrorMessage = styled.div`
   background-color: ${({ theme }) => theme.secondary};
 `;
 
-class LoginForm extends Component {
-  render() {
-    const { isLogged } = this.props;
-    if (isLogged) {
-      return <Redirect to="/administrator" />;
-    }
-    return (
-      <StyledWrapper>
-        <StyledHeading>Login</StyledHeading>
-        <StyledFormik
-          initialValues={{ username: '', password: '' }}
-          validate={values => {
-            const errors = {};
+const LoginForm = props => {
+  const [isLoading, setLoading] = useState(false);
+  const { isLogged } = props;
 
-            if (!values.username) {
-              errors.username = 'How can we log you in without your username?';
-            }
-            if (!values.password) {
-              errors.password = 'You must enter the password';
-            }
-
-            return errors;
-          }}
-          onSubmit={(values, { resetForm }) => {
-            const { authenticate } = this.props;
-            authenticate(values.username, values.password);
-            resetForm();
-          }}
-        >
-          {({ values }) => {
-            return (
-              <StyledForm>
-                <StyledFieldContainer>
-                  <Input as={Field} type="text" name="username" />
-                  <StyledErrorMessage name="username" component="div" />
-                </StyledFieldContainer>
-                <StyledFieldContainer>
-                  <Input as={Field} type="password" name="password" />
-                  <StyledErrorMessage name="password" component="div" />
-                </StyledFieldContainer>
-
-                <Button type="submit">Submit</Button>
-                {isLogged === false && (
-                  <StyledFormErrorMessage>Wrong password or username!!</StyledFormErrorMessage>
-                )}
-              </StyledForm>
-            );
-          }}
-        </StyledFormik>
-      </StyledWrapper>
-    );
+  if (isLogged) {
+    return <Redirect to="/administrator" />;
   }
-}
+  return (
+    <StyledWrapper>
+      {isLoading && <LoadingIcom formLoading />}
+      <StyledHeading>Login</StyledHeading>
+      <StyledFormik
+        initialValues={{ username: '', password: '' }}
+        validate={values => {
+          const errors = {};
+
+          if (!values.username) {
+            errors.username = 'How can we log you in without your username?';
+          }
+          if (!values.password) {
+            errors.password = 'You must enter the password';
+          }
+
+          return errors;
+        }}
+        onSubmit={(values, { resetForm }) => {
+          const { authenticate } = props;
+          setLoading(true);
+          authenticate(values.username, values.password).then(() => setLoading(false));
+          resetForm();
+        }}
+      >
+        {() => {
+          return (
+            <StyledForm>
+              <StyledFieldContainer>
+                <Input as={Field} type="text" name="username" />
+                <StyledErrorMessage name="username" component="div" />
+              </StyledFieldContainer>
+              <StyledFieldContainer>
+                <Input as={Field} type="password" name="password" />
+                <StyledErrorMessage name="password" component="div" />
+              </StyledFieldContainer>
+
+              <Button type="submit">Submit</Button>
+              {isLogged === false && (
+                <StyledFormErrorMessage>Wrong password or username!!</StyledFormErrorMessage>
+              )}
+            </StyledForm>
+          );
+        }}
+      </StyledFormik>
+    </StyledWrapper>
+  );
+};
 
 const mapStateToProps = ({ isLogged = null }) => ({ isLogged });
 

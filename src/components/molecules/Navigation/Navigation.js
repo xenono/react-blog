@@ -23,25 +23,25 @@ const StyledWrapper = styled.div`
 `;
 
 export const AdministratorNavigation = ({ isLogged }) => (
-  <Link href="/" onClick={() => !isLogged}>
+  <Link href="/login" onClick={() => !isLogged}>
     log out
   </Link>
 );
 
 export const UserNavigation = [
-  <Link exact as={NavLink} activeclass="active" to="/">
+  <Link exact as={NavLink} activeclass="active" to="/" key="home">
     home
   </Link>,
 
-  <Link as={NavLink} activeclass="active" to="/posts">
+  <Link as={NavLink} activeclass="active" to="/posts" key="blog">
     blog
   </Link>,
 
-  <Link as={NavLink} activeclass="active" to="/tutorials">
+  <Link as={NavLink} activeclass="active" to="/tutorials" key="tutorials">
     tutorials
   </Link>,
 
-  <Link as={NavLink} activeclass="active" to="/login">
+  <Link as={NavLink} activeclass="active" to="/login" key="log in">
     log in
   </Link>,
 ];
@@ -57,12 +57,13 @@ const Navigation = ({ administratorNav, isLogged }) => (
 );
 
 Navigation.propTypes = {
-  isLogged: PropTypes.bool.isRequired,
   administratorNav: PropTypes.bool,
+  isLogged: PropTypes.bool,
 };
 
 Navigation.defaultProps = {
   administratorNav: false,
+  isLogged: false,
 };
 
 const mapStateToProps = ({ isLogged }) => ({ isLogged });
