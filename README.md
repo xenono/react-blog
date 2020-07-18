@@ -4,8 +4,8 @@ Blog application with custom cms, based on React, React Redux with REST API buil
 I used React Router,React Image, React Player, gulp to create animations and Express to create Rest API. Unit tests are written
 using JEST and react-testing-library.
 
-Login an password to admin panel.
-login: admin
-password: adminpassword
+Login and password to admin panel.
+1. login: admin
+1. password: adminpassword
 
 Liver version can be find on https://xenono-react-blog.herokuapp.com/
